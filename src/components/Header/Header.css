@@ -1,0 +1,33 @@
+nav {
+  padding: 1% 0;
+  background-color: #1a1e2c;
+ 
+}
+ul {
+  list-style-type: none;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
+
+.logo a {
+  float: left;
+  color: #f2f2f2;
+  padding: 1px 10px;
+  text-decoration: none;
+  font-size: 20px;
+}
+
+.nav-links a {
+  float: right;
+  color: #f2f2f2;
+  padding: 1px 10px;
+  text-decoration: none;
+  font-size: 20px;
+  text-align: right;
+} 
