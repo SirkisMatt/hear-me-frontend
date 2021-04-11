@@ -1,3 +1,116 @@
 .map {
-    padding-top: 100px;
+    padding-top: 30px;
+    width: 100vw;
+    height: 100vh;
+}
+
+.marker_btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+   
+}
+
+.marker_btn .megaphone {
+    width: 20px;
+    height: 20px;
+ 
+}
+
+.form-window {
+    z-index: 5;
+    margin-top: 30px;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#search {
+    width: 90%;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    font-family: 'Montserrat', sans-serif;
+    z-index: 1;
+}
+
+  
+.window input[type=text] {
+    padding: 10px;
+    height: 50px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+    border-radius: 4px 0px 0px 4px;
+}
+  
+.window .search {
+    float: left;
+    height: 50px;
+    width: 20%;
+    padding: 10px;
+    background: #000000;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+    border-radius: 0px 4px 4px 0px;
+}
+  
+.window .search:hover {
+    background: grey;
+}
+
+
+.filter-container {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    z-index: 1;
+}
+
+.filter-container button {
+    width: 175px;
+    height: 50px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    transition: .3s;
+    opacity: .8;
+}
+
+.filter-container button:hover {
+    opacity: 1;
+}
+
+#gender_btn {
+    background-color: #ef3381;
+    opacity: .9;
+}
+
+#race_btn {
+    background-color: #f9cb55;
+}
+
+#sexual_abuse_btn {
+    background-color: #48af73;
+}
+
+#physical_abuse_btn {
+    background-color: #5b55e0;
+}
+
+#verbal_abuse_btn {
+    background-color: #f75442;
 }
