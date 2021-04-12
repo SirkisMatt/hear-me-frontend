@@ -2,12 +2,16 @@ import React, {useState, useEffect, useLayoutEffect} from 'react'
 import ReactMapGL, {Marker, Popup} from 'react-map-gl'
 import * as incidentData from '../../data/incidents.json'
 import { ReactComponent as Megaphone} from '../../svg/megaphone.svg'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import FilterButton from '../FilterButtons/FilterButton'
+import SearchBar from '../SearchBar/SearchBar'
 import Axios from 'axios'
 import './Map.css'
 
+    //Set categories for buttons
+const allCategories = ['All', ...new Set(incidentData.data.map(item => item.type))]
+
 function Map() {
+        //set viewport of map
     const [viewport, setViewport] = useState({
         latitude: 45.4211,
         longitude: -75.6903,
@@ -17,27 +21,26 @@ function Map() {
     })
 
     const [selectedIncident, setSelectedIncident] = useState(null);
-    // const [gender, setGender] = useState(true)
-    // const [race, setRace] = useState(true)
-    // const [sexualAssault, setSA] = useState(true)
-    // const [physicalAssault, setPA] = useState(true)
-    // const [verbalAssault, setVA] = useState(true)
     const [search, setSearch] = useState('')
     const [incidents, setIncidents] = useState(incidentData.data)
-    const [buttons, setButtons] = useState([])
+    const [buttons, setButtons] = useState(allCategories)
 
+        //filter incidentData based on button pressed
     const filterIncidents = (button) => {
+        setActive(button)
+        if(button === 'All') {
+            setIncidents(incidentData.data)
+            return;
+        }
         const filteredData = incidentData.data.filter(incident => incident.type === button)
         setIncidents(filteredData)
     }
 
-
-    const getSearch = (e) => {
-        e.preventDefault();
+    const getSearch = () => {
         Axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`)
             .then(res => {
                 if(res.data.features.length === 0) {
-                    console.log("Sorry there is now location with that name.")
+                    console.log("Sorry there is no location with that name.")
                 } else {
                     setViewport({
                         latitude: res.data.features[0].center[1],
@@ -47,14 +50,13 @@ function Map() {
                         zoom: 10   
                       });
                 }
-                
-                
             })
             .catch(err => {
                 console.log(err)
             })
     }
   
+        // Reset viewport for map when window is resized
     useLayoutEffect(() => {
         function updateSize() {
             setViewport({
@@ -68,7 +70,7 @@ function Map() {
     }, []);
     
     
- 
+        // Escape popup window whe escape key is pressed
     useEffect(() => {
         const listener = (e) => {
             if(e.key === "Escape") {
@@ -83,7 +85,8 @@ function Map() {
         }
     }, [])
 
-
+    const [active, setActive] = useState(allCategories[0]);
+// setActive={setActive}
     return (
         <div className="map">
             <ReactMapGL 
@@ -97,19 +100,10 @@ function Map() {
             }}
             onClick={(e) => console.log(e.lngLat)}
             >
-                  <div className="form-window">
-                        <form className="window" id="search" onSubmit={(e) => getSearch(e)}>
-                            <input type="text" placeholder="Search Location" name="search" id="city" onChange={(e) => setSearch(e.target.value)} />
-                            <button  value="submit" type="submit" className="search"><FontAwesomeIcon icon={faSearch}/></button>
-                        </form>
-                        <div className="filter-container">
-                            <button id="gender_btn" value="gender" onClick={() => filterIncidents('gender')}>Gender</button>
-                            <button id="race_btn" onClick={() => filterIncidents('race')}>Race</button>
-                            <button id="sexual_abuse_btn" onClick={() => filterIncidents('sexual assault')}>Sexual Assault</button>
-                            <button id="physical_abuse_btn" onClick={() => filterIncidents('physical assault')}>Physical Assault</button>
-                            <button id="verbal_abuse_btn" onClick={() => filterIncidents('verbal assault')}>Verbal Assault</button>
-                        </div>
-                    </div>
+                <div className="form-window">
+                    <SearchBar getSearch={getSearch} setSearch={setSearch}/>
+                    <FilterButton button={buttons} active={active} filterIncidents={filterIncidents} />
+                </div>
                 {incidents.map(incident => (
                     <Marker key={incident.userId} longitude={incident.coordinates[0]} latitude={incident.coordinates[1]}>
                         <div>

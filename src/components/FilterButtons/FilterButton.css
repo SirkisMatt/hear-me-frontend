@@ -1,0 +1,52 @@
+.filter-container {
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: space-between;
+    margin-top: 10px;
+    z-index: 1;
+}
+
+.filter-container button {
+    width: 165px;
+    height: 50px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.2em;
+    font-weight: 700;
+    font-family: 'Lato', sans-serif;
+    transition: .3s;
+    opacity: .8;
+}
+
+.filter-container button:hover {
+    opacity: 1;
+}
+
+.Gender {
+    background-color: #ef3381;
+    opacity: .9;
+}
+
+.Race {
+    background-color: #f9cb55;
+}
+
+.Sexual {
+    background-color: #48af73;
+}
+
+.Physical {
+    background-color: #5b55e0;
+}
+
+.Verbal {
+    background-color: #f75442;
+}
+
+/* .btn:active, .btn:focus{
+    outline: yellowgreen;
+    border: 1px solid black;
+} */
