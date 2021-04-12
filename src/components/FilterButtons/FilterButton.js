@@ -6,7 +6,18 @@ function FilterButton({button, filterIncidents, active}) {
         <div className="filter-container">
             {
                 button.map((cat, i) => {
-                return <button key={i} type="button" className={cat}  active={active === cat} style={{opacity: (active === cat) ? "1" : ".8"}} onClick={() => filterIncidents(cat)}>{cat}</button>
+                return  <button 
+                        key={i} 
+                        type="button" 
+                        className={cat}  
+                        style={{
+                            opacity: (active === cat) ? "1" : ".8",
+                            border: (active === cat) && "1px solid #000000"
+                        }} 
+                        onClick={() => filterIncidents(cat)}
+                        >
+                            {cat}
+                        </button>
                 })
             }
         </div>
@@ -14,6 +25,3 @@ function FilterButton({button, filterIncidents, active}) {
 }
 
 export default FilterButton;
-
-// onClick={() => filterIncidents(cat)}
-// onClick={() => setActive(cat)}

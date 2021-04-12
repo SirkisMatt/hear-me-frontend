@@ -86,7 +86,7 @@ function Map() {
     }, [])
 
     const [active, setActive] = useState(allCategories[0]);
-// setActive={setActive}
+
     return (
         <div className="map">
             <ReactMapGL 

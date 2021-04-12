@@ -1,54 +1,89 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-// import TokenService from '../../services/token-service'
-// import AuthApiService from '../../services/auth-api-service'
-// import { Button, Input } from '../Utils/Utils'
+import React, {Component} from 'react';
+import ValidationError from '../Utils/ValidationError'
 
 class LoginForm extends Component {
-//   static defaultProps = {
-//     onLoginSuccess: () => {}
-//   }
 
-//   state = { error: null }
+    
 
-//   handleSubmitJwtAuth = ev => {
-//     ev.preventDefault()
-//     this.setState({ error: null })
-//     const { user_name, password } = ev.target
+    constructor() {
+        super()
+        this.state = {
+            error: false,
+            email: {
+                value: "",
+                touched: false
+            },
+            password: {
+                value: "",
+                touched: false
+            },
+            invalid: {
+                value: "Invalid email or password",
+                error: false
+            }
+        }
+    }
 
-//     AuthApiService.postLogin({
-//       user_name: user_name.value,
-//       password: password.value,
-//     })
-//       .then(res => {
-//         user_name.value = ''
-//         password.value = ''
-//         TokenService.saveAuthToken(res.authToken)
-//         this.props.onLoginSuccess()
-//       })
-//       .catch(res => {
-//         this.setState({ error: res.error })
-//       })
-//   }
+    handleEmailChange = e => {
+        this.setState({
+            email: {
+                value: e.target.value,
+                touched: true
+            }
+        })
+    }
+
+    handlePasswordChange = e => {
+        this.setState({
+            password: {
+                value: e.target.value,
+                touched: true
+            }
+        })
+    }
+
+    ValidateEmail = () => 
+    {
+    if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(this.state.email.value))
+    {
+        return (true)
+    }
+        return ("You have entered an invalid email address!")
+    }
+
+   
+    handleSubmit = (e) => {
+        e.preventDefault(e)
+
+        this.props.onLoginSuccess()
+    }
+
+    invalid = () => {
+        this.setState({
+            invalid: {
+                value: "Invalid email or password",
+                error: true
+            }
+        })
+    }
+    
+
 
   render() {
+      const emailError = this.ValidateEmail();
     return (
-        <div className="login-wrap">
-            <h2>Login Here</h2>
-            <form className='login-form'>
-                  <input placeholder="Email" type="text" name='email' id='email' />
-                    <input placeholder="Password" type="password" name='password' id='password'/>
-                    <button type='button'>
-                        <Link to='/map-dashboard'>
-                            Log In
-                        </Link>
-                        
-                    </button>
-            </form>
-            <p>Don't have an account? <Link to='/signup' className="sign-up">Sign Up</Link></p>
-    </div>
-    )
+      <form className='login-form' onSubmit={this.handleSubmit}>
+          {this.state.invalid.error &&  <ValidationError message={this.state.invalid.value}/>}
+            <input placeholder="Email" type="text" name='email' id='email' onChange={e => this.handleEmailChange(e)} />
+            {this.state.email.touched && <ValidationError message={emailError}/>}
+              <input placeholder="Password" type="password" name='password' id='password' onChange={e => this.handlePasswordChange(e)}/>
+              <button type='submit'>
+                  Log In
+              </button>
+      </form>
+    );
   }
+
 }
 
-export default LoginForm
+export default LoginForm;
