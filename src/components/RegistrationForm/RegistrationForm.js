@@ -67,7 +67,6 @@ class RegistrationForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault(e)
-        console.log(this.state.userName.value.length)
         this.props.onRegistrationSuccess()
        
     }

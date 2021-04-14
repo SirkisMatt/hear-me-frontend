@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useLayoutEffect} from 'react'
+import React, {useState, useEffect, useLayoutEffect, useContext} from 'react'
 import ReactMapGL, {Marker, Popup} from 'react-map-gl'
 import * as incidentData from '../../data/incidents.json'
 import { ReactComponent as Megaphone} from '../../svg/megaphone.svg'
@@ -6,33 +6,64 @@ import FilterButton from '../FilterButtons/FilterButton'
 import SearchBar from '../SearchBar/SearchBar'
 import Axios from 'axios'
 import './Map.css'
+import IncidentContext from '../../contexts/incidentContext'
 
     //Set categories for buttons
 const allCategories = ['All', ...new Set(incidentData.data.map(item => item.type))]
 
-function Map() {
+function Map(props) {
+
+    const value = useContext(IncidentContext)
+    const {loggedIn, width, height} = props
+    const [position, setPosition] = useState([45.4211, -75.6903])
+    const [lat, lng] = position
+
         //set viewport of map
     const [viewport, setViewport] = useState({
-        latitude: 45.4211,
-        longitude: -75.6903,
-        width: "100vw",
-        height: "100vh",
-        zoom: 10        
+        latitude: lat,
+        longitude: lng,
+        width: width,
+        height: height,
+        zoom: 7        
     })
 
-    const [selectedIncident, setSelectedIncident] = useState(null);
+   
     const [search, setSearch] = useState('')
-    const [incidents, setIncidents] = useState(incidentData.data)
+    const [incidents, setIncidents] = useState(value.incidents)
     const [buttons, setButtons] = useState(allCategories)
+    
+    
+    const {selectedIncident, setSelectedIncident, location, setLocation} = value
 
+
+        //setIncidentData
+    useEffect(() => {
+        value.setIncidents(incidentData.data)
+        // if(navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(
+        //         function(position) {
+        //             setViewport({
+        //                 latitude: position.coords.latitude,
+        //                 longitude: position.coords.longitude,
+        //                 width: width,
+        //                 height: height,
+        //                 zoom: 7  
+        //             })
+        //         }
+        //     )
+
+        // }
+    }, [])
+
+    
         //filter incidentData based on button pressed
     const filterIncidents = (button) => {
         setActive(button)
         if(button === 'All') {
-            setIncidents(incidentData.data)
+            setIncidents(value.incidents)
             return;
         }
-        const filteredData = incidentData.data.filter(incident => incident.type === button)
+        const filteredData = value.incidents.filter(incident => incident.type === button)
         setIncidents(filteredData)
     }
 
@@ -50,6 +81,7 @@ function Map() {
                         zoom: 10   
                       });
                 }
+                
             })
             .catch(err => {
                 console.log(err)
@@ -98,7 +130,7 @@ function Map() {
             onViewportChange={(viewport) => {
                 setViewport(viewport)
             }}
-            onClick={(e) => console.log(e.lngLat)}
+            onClick={(e) => setLocation(e.lngLat) }
             >
                 <div className="form-window">
                     <SearchBar getSearch={getSearch} setSearch={setSearch}/>
@@ -116,6 +148,14 @@ function Map() {
                         </div>
                     </Marker>
                 ))}
+
+                { (location.length !== 0) &&
+                    <Marker longitude={location[0]} latitude={location[1]}>
+                        <div className="marker_btn">
+                            <Megaphone className="megaphone"/>
+                        </div>
+                    </Marker>
+                }
 
                 {selectedIncident && 
                 <Popup 

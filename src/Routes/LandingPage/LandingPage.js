@@ -24,7 +24,7 @@ function LandingPage(props) {
         const [width, height] = size
     
         return (
-            <div className='landing-page '>
+            <div className='landing-page'>
                 <div className="banner header_wrapper" style={{
                 height: height,
                 width: width

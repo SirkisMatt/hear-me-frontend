@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import { Route, Switch } from 'react-router-dom'
 import './App.css';
 import Header from '../Header/Header'
@@ -8,8 +8,8 @@ import RegistrationPage from '../../Routes/RegistrationPage/RegistrationPage'
 import MapPage from '../../Routes/MapPage/MapPage'
 import MapDashboard from '../../Routes/MapDashboard/MapDashboard'
 
-function App() {
 
+function App() {
 
   const renderMainRoutes = () => {
     return (

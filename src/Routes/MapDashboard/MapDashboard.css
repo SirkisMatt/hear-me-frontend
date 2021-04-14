@@ -1,30 +1,15 @@
-.map {
-    padding-top: 30px;
+/* .form_container {
+    height: 33.33333%;
     display: flex;
+    flex-wrap: wrap;
     flex-direction: column;
-    align-items: center;
+} */
+.form_container {
+    background-color: darkslategray;
 }
 
-
-.marker_btn {
-    background: none;
-    border: none;
-    cursor: pointer;
-   
+.client_incident_container {
+    height: 95vh;
+    width: 100vw;
+    background-color: coral;
 }
-
-.marker_btn .megaphone {
-    width: 20px;
-    height: 20px;
- 
-}
-
-.form-window {
-    z-index: 5;
-    margin-top: 30px;
-    width: 80vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-

@@ -20,7 +20,7 @@
             "userId": 3,
             "userName": "user3",
             "timeOfIncident": "2021-04-08 11:45:35",
-            "type": "Sexual Assault",
+            "type": "Sexual",
             "description": "lckxjzexcvbner mojni'vy;lcut kyrxjc ktvybune qcvqvrr3rv 3qv3qvc3qcv3rv 31v31v 1q3cvr",
             "coordinates": [-75.3372912345678, 45.1234567891234]
         }, 
@@ -28,7 +28,7 @@
             "userId": 4,
             "userName": "user4",
             "timeOfIncident": "2021-04-08 11:45:35",
-            "type": "Physical Assault",
+            "type": "Physical",
             "description": "lckxjzexcvbner mojni'vy;lcut kyrxjc ktvybune qcvqvrr3rv 3qv3qvc3qcv3rv 31v31v 1q3cvr",
             "coordinates": [-75.9876543211234, 45.383321536272049]
         },
@@ -36,7 +36,7 @@
             "userId": 5,
             "userName": "user5",
             "timeOfIncident": "2021-04-08 11:45:35",
-            "type": "Physical Assault",
+            "type": "Physical",
             "description": "lckxjzexcvbner mojni'vy;lcut kyrxjc ktvybune qcvqvrr3rv 3qv3qvc3qcv3rv 31v31v 1q3cvr",
             "coordinates": [-75.9876543211234, 45.354321536272049]
         },
@@ -44,7 +44,7 @@
             "userId": 6,
             "userName": "user6",
             "timeOfIncident": "2021-04-08 11:45:35",
-            "type": "Physical Assault",
+            "type": "Physical",
             "description": "lckxjzexcvbner mojni'vy;lcut kyrxjc ktvybune qcvqvrr3rv 3qv3qvc3qcv3rv 31v31v 1q3cvr",
             "coordinates": [-75.2874543211234, 45.383321536272049]
         },
@@ -52,7 +52,7 @@
             "userId": 7,
             "userName": "user7",
             "timeOfIncident": "2021-04-08 11:45:35",
-            "type": "Verbal Assault",
+            "type": "Verbal",
             "description": "lckxjzexcvbner mojni'vy;lcut kyrxjc ktvybune qcvqvrr3rv 3qv3qvc3qcv3rv 31v31v 1q3cvr",
             "coordinates": [-75.9876543211234, 45.111121536272049]
         },
@@ -60,7 +60,7 @@
             "userId": 8,
             "userName": "user8",
             "timeOfIncident": "2021-04-08 11:45:35",
-            "type": "Verbal Assault",
+            "type": "Verbal",
             "description": "lckxjzexcvbner mojni'vy;lcut kyrxjc ktvybune qcvqvrr3rv 3qv3qvc3qcv3rv 31v31v 1q3cvr",
             "coordinates": [-75.9876543211234, 45.122121536272049]
         }

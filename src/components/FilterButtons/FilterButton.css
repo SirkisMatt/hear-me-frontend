@@ -5,16 +5,16 @@
     flex-wrap: wrap;
     text-align: center;
     justify-content: space-between;
-    margin-top: 10px;
     z-index: 1;
 }
 
 .filter-container button {
-    width: 165px;
-    height: 50px;
+    width: 100px;
+    height: 40px;
     border-radius: 8px;
     cursor: pointer;
-    font-size: 1.2em;
+    margin-bottom: 5px;
+    font-size: 1em;
     font-weight: 700;
     font-family: 'Lato', sans-serif;
     transition: .3s;
@@ -50,3 +50,43 @@
     outline: yellowgreen;
     border: 1px solid black;
 } */
+
+
+@media all and (min-width: 400px) {
+
+    .filter-container {
+        justify-content: space-between;
+        margin-top: 10px;
+    }
+
+    .filter-container button {
+        width: 90px;
+        height: 40px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 700;
+        font-family: 'Lato', sans-serif;
+        transition: .3s;
+        opacity: .8;
+    }
+  }
+
+  @media all and (min-width: 1024px) {
+
+    .filter-container {
+        justify-content: space-between;
+    }
+
+    .filter-container button {
+        width: 120px;
+        height: 40px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 1em;
+        font-weight: 700;
+        font-family: 'Lato', sans-serif;
+        transition: .3s;
+        opacity: .8;
+    }
+  }

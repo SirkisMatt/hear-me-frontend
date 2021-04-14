@@ -7,7 +7,7 @@ function SearchBar({setSearch, getSearch}) {
     return (
         <div className="window" id="search" >
             <input type="text" placeholder="Search Location" name="search" id="city" onChange={(e) => setSearch(e.target.value)} />
-            <button  value="submit" type="submit" className="search" onClick={() => getSearch()}><FontAwesomeIcon icon={faSearch}/></button>
+            <button  value="submit" type="submit" className="search" onClick={() => getSearch()}><FontAwesomeIcon className="search_icon" icon={faSearch}/></button>
         </div>
     )
 }
