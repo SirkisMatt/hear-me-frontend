@@ -14,7 +14,7 @@ const allCategories = ['All', ...new Set(incidentData.data.map(item => item.type
 function Map(props) {
 
     const value = useContext(IncidentContext)
-    const {loggedIn, width, height} = props
+    const {loggedIn, width, height, chooseLocation} = props
     const [position, setPosition] = useState([45.4211, -75.6903])
     const [lat, lng] = position
 
@@ -76,8 +76,8 @@ function Map(props) {
                     setViewport({
                         latitude: res.data.features[0].center[1],
                         longitude: res.data.features[0].center[0],
-                        width: "100vw",
-                        height: "100vh",
+                        width: width,
+                        height: height,
                         zoom: 10   
                       });
                 }
@@ -149,7 +149,7 @@ function Map(props) {
                     </Marker>
                 ))}
 
-                { (location.length !== 0) &&
+                { ((location.length !== 0) && chooseLocation) &&
                     <Marker longitude={location[0]} latitude={location[1]}>
                         <div className="marker_btn">
                             <Megaphone className="megaphone"/>

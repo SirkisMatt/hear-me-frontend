@@ -16,6 +16,7 @@ function MapDashBoard() {
 
     const [mapSize, setMapSize] = useState(["100vW", "70vh"])
     const [incidentToggle, toggleAddIncident] = useState(false)
+    const [chooseLocation, toggleChooseLocation] = useState(false)
   
     useLayoutEffect(() => {
         function updateSize() {
@@ -47,6 +48,7 @@ function MapDashBoard() {
                 loggedIn={true} 
                 width={mapWidth}
                 height={mapHeight}
+                chooseLocation={chooseLocation}
                 // setLocation={(location) => setLocation(location)}
                 // location={location}
                 />
@@ -56,7 +58,11 @@ function MapDashBoard() {
                 ?
                 <button className="add_incident_button" onClick={() => toggleAddIncident(true)}>Add an Incident</button>
                 :
-                <AddIncident toggleAddIncident={() => toggleAddIncident(!incidentToggle)}/>
+                <AddIncident 
+                chooseLocation={chooseLocation} 
+                toggleChooseLocation={() => toggleChooseLocation(!chooseLocation)} 
+                toggleAddIncident={() => toggleAddIncident(!incidentToggle)}
+                />
                 }
             </div>
             </div>
