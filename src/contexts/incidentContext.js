@@ -4,6 +4,7 @@ const IncidentContext = React.createContext({
     incidents: [],
     selectedIncident: null,
     location: [],
+    loggedIn: false,
     error: null,
     setError: () => {},
     clearError: () => {},
@@ -34,6 +35,10 @@ export class IncidentProvider extends Component {
         this.setState({location})
     }
 
+    toggleLoggedIn = loggedIn => {
+        this.setState({loggedIn})
+    }
+
     setError = error => {
         console.log(error)
         this.setState({ error })
@@ -48,10 +53,12 @@ export class IncidentProvider extends Component {
             incidents: this.state.incidents,
             selectedIncident: this.state.selectedIncident,
             location: this.state.location,
+            loggedIn: this.state.loggedIn,
             error: this.state.error,
             setError: this.setError,
             clearError: this.clearError,
             setIncidents: this.setIncidents,
+            toggleLoggedIn: this.toggleLoggedIn,
             setSelectedIncident: this.setSelectedIncident,
             setLocation: this.setLocation
         }

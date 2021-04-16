@@ -1,23 +1,31 @@
-import React, {useState} from 'react'
+import React, {useState, useContext} from 'react'
 import { Link } from 'react-router-dom'
+import IncidentContext from '../../contexts/incidentContext'
 import './Header.css'
 
 function Header(props) {
+
+    const value = useContext(IncidentContext)
     const [loggedIn, updateStatus] = useState(false)
 
     const handleLogoutClick = () => {
-        props.history.push('/')
+        // props.history.push('/')
+        value.toggleLoggedIn()
         // TokenService.clearAuthToken()
       }
     
     const renderLogoutLink = () => {
         return (
           <div className='Header__logged-in'>
-            <Link
-              onClick={handleLogoutClick}
-              to='/'>
-              Logout
-            </Link>
+            <ul className="nav-links">
+                  <li>
+                  <Link
+                    onClick={handleLogoutClick}
+                    to='/'>
+                    Logout
+                  </Link>
+                  </li>
+            </ul>
           </div>
         )
       }
@@ -57,7 +65,7 @@ function Header(props) {
             Hear me
             </Link>
         </div>
-        {loggedIn
+        {value.loggedIn
             ? renderLogoutLink()
             : renderLoginLink()}
         </nav>

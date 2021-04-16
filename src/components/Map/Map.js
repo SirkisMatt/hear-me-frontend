@@ -18,6 +18,8 @@ function Map(props) {
     const [position, setPosition] = useState([45.4211, -75.6903])
     const [lat, lng] = position
 
+
+
         //set viewport of map
     const [viewport, setViewport] = useState({
         latitude: lat,
@@ -38,6 +40,11 @@ function Map(props) {
 
         //setIncidentData
     useEffect(() => {
+        if(loggedIn) {
+            value.toggleLoggedIn(true)
+        } else {
+            value.toggleLoggedIn(false)
+        }
         value.setIncidents(incidentData.data)
         // if(navigator.geolocation) {
         //     navigator.geolocation.getCurrentPosition(

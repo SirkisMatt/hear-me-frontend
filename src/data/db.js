@@ -1,5 +1,5 @@
-{
-    "data": [
+module.exports = () => ({
+    "incidents": [
         {
             "userId": 1,
             "userName": "user1",
@@ -86,3 +86,4 @@
         }
     ]
 }
+)

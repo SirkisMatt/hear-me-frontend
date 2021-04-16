@@ -1,12 +1,14 @@
-import React, {useState, useLayoutEffect, useEffect} from 'react';
+import React, {useState, useLayoutEffect, useContext, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import group from '../../Images/group.png'
 import phone from '../../Images/map-phone.png'
 import megaphone from '../../Images/megaphone.png'
+import IncidentContext from '../../contexts/incidentContext'
 import './LandingPage.css'
 
 function LandingPage(props) {
 
+    const value = useContext(IncidentContext)
     const [size, setSize] = useState([0, 0])
     const [error, toggleError] = useState(false)
   
@@ -22,6 +24,10 @@ function LandingPage(props) {
   
   
         const [width, height] = size
+
+    useEffect(() => {
+            value.toggleLoggedIn(false)
+    }, [])
     
         return (
             <div className='landing-page'>
