@@ -1,6 +1,7 @@
 module.exports = () => ({
     "incidents": [
         {
+            "id": 1,
             "userId": 1,
             "userName": "user1",
             "timeOfIncident": "2021-04-08 11:45:35",
@@ -9,6 +10,7 @@ module.exports = () => ({
             "coordinates": [-75.3372987731628, 45.9876543211234]
         }, 
         {
+            "id": 2,
             "userId": 2, 
             "userName": "user2",
             "timeOfIncident": "2021-06-08 11:45:35",
@@ -17,6 +19,7 @@ module.exports = () => ({
             "coordinates": [-75.3372987731628, 45.383321536272049]
         }, 
         {
+            "id": 3,
             "userId": 3,
             "userName": "user3",
             "timeOfIncident": "2021-07-08 11:45:35",
@@ -25,6 +28,7 @@ module.exports = () => ({
             "coordinates": [-75.3372912345678, 45.1234567891234]
         }, 
         {
+            "id": 4,
             "userId": 1,
             "userName": "user1",
             "timeOfIncident": "2021-12-08 11:45:35",
@@ -33,6 +37,7 @@ module.exports = () => ({
             "coordinates": [-75.9876543211234, 45.383321536272049]
         },
         {
+            "id": 5,
             "userId": 3,
             "userName": "user3",
             "timeOfIncident": "2021-20-08 11:45:35",
@@ -41,6 +46,7 @@ module.exports = () => ({
             "coordinates": [-75.9876543211234, 45.354321536272049]
         },
         {
+            "id": 6,
             "userId": 2,
             "userName": "user2",
             "timeOfIncident": "2021-21-08 11:45:35",
@@ -49,6 +55,7 @@ module.exports = () => ({
             "coordinates": [-75.2874543211234, 45.383321536272049]
         },
         {
+            "id": 7,
             "userId": 3,
             "userName": "user3",
             "timeOfIncident": "2021-22-08 11:45:35",
@@ -57,6 +64,7 @@ module.exports = () => ({
             "coordinates": [-75.9876543211234, 45.111121536272049]
         },
         {
+            "id": 8,
             "userId": 1,
             "userName": "user1",
             "timeOfIncident": "2021-23-08 11:45:35",
@@ -67,19 +75,19 @@ module.exports = () => ({
     ],
     "users": [
         {
-            "userId": 1,
+            "id": 1,
             "userName": "user1",
             "password": "1234567890",
             "email": "test@test.com"
         },
         {
-            "userId": 2,
+            "id": 2,
             "userName": "user2",
             "password": "1234567890",
             "email": "test@test.com"
         },
         {
-            "userId": 3,
+            "id": 3,
             "userName": "user3",
             "password": "1234567890",
             "email": "test@test.com"

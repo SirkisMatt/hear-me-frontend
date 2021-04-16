@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 
 const IncidentContext = React.createContext({
     incidents: [],
+    user: {},
     selectedIncident: null,
     location: [],
     loggedIn: false,
@@ -18,6 +19,7 @@ export default IncidentContext
 export class IncidentProvider extends Component {
     state = {
         incidents: [],
+        user: {},
         selectedIncident: null,
         location: [],
         error: null
@@ -29,6 +31,10 @@ export class IncidentProvider extends Component {
 
     setSelectedIncident = selectedIncident => {
         this.setState({selectedIncident})
+    }
+
+    addUser = user => {
+        this.setState({user})
     }
 
     setLocation = location => {
@@ -51,6 +57,7 @@ export class IncidentProvider extends Component {
     render() {
         const value = {
             incidents: this.state.incidents,
+            user: this.state.user,
             selectedIncident: this.state.selectedIncident,
             location: this.state.location,
             loggedIn: this.state.loggedIn,
@@ -58,6 +65,7 @@ export class IncidentProvider extends Component {
             setError: this.setError,
             clearError: this.clearError,
             setIncidents: this.setIncidents,
+            addUser: this.addUser,
             toggleLoggedIn: this.toggleLoggedIn,
             setSelectedIncident: this.setSelectedIncident,
             setLocation: this.setLocation

@@ -6,7 +6,9 @@ import FilterButton from '../FilterButtons/FilterButton'
 import SearchBar from '../SearchBar/SearchBar'
 import Axios from 'axios'
 import './Map.css'
+import config from '../../config'
 import IncidentContext from '../../contexts/incidentContext'
+// import IncidentApiService from '../../services/incident-api-service'
 
     //Set categories for buttons
 const allCategories = ['All', ...new Set(incidentData.data.map(item => item.type))]
@@ -45,7 +47,18 @@ function Map(props) {
         } else {
             value.toggleLoggedIn(false)
         }
-        value.setIncidents(incidentData.data)
+        // value.setIncidents(incidentData.data)
+        Axios.get(`${config.API_ENDPOINT}/incidents`)
+            .then(res => {
+                if (res.status === 200) {
+                    value.setIncidents(res.data)
+                  } else {
+                    throw new Error
+                  }
+            }).catch(err => {
+                value.setError(err)
+            })
+
         // if(navigator.geolocation) {
         //     navigator.geolocation.getCurrentPosition(
         //         function(position) {
@@ -144,7 +157,7 @@ function Map(props) {
                     <FilterButton button={buttons} active={active} filterIncidents={filterIncidents} />
                 </div>
                 {incidents.map(incident => (
-                    <Marker key={incident.userId} longitude={incident.coordinates[0]} latitude={incident.coordinates[1]}>
+                    <Marker key={incident.Id} longitude={incident.coordinates[0]} latitude={incident.coordinates[1]}>
                         <div>
                             <button className="marker_btn" onClick={(e) => {
                                 e.preventDefault();

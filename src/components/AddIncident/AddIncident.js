@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import Axios from 'axios'
 import './AddIncident.css'
+import config from '../../config'
 import IncidentContext from '../../contexts/incidentContext'
 
 function AddIncident({toggleAddIncident, toggleChooseLocation, chooseLocation}) {
@@ -23,6 +24,10 @@ function AddIncident({toggleAddIncident, toggleChooseLocation, chooseLocation}) 
             })
         }
     }, [value.location])
+
+    // handleAddIncident = () => {
+    //     Axios.post(`${config.API_ENDPOINT}/incidents`)
+    // }
 
     
     
