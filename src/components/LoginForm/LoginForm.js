@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import ValidationError from '../Utils/ValidationError'
 import IncidentContext from '../../contexts/incidentContext'
+import config from '../../config'
+import Axios from 'axios';
 
 class LoginForm extends Component {
 
@@ -10,6 +12,10 @@ class LoginForm extends Component {
         super()
         this.state = {
             error: false,
+            userName: {
+              value: "",
+              touched: false
+            },
             email: {
                 value: "",
                 touched: false
@@ -27,6 +33,10 @@ class LoginForm extends Component {
 
     handleEmailChange = e => {
         this.setState({
+            userName: {
+            value: "testUser",
+            touched: true
+            },
             email: {
                 value: e.target.value,
                 touched: true
@@ -55,8 +65,35 @@ class LoginForm extends Component {
    
     handleSubmit = (e) => {
         e.preventDefault(e)
+        if(!this.context.user.id) {
+          Axios.post(`${config.API_ENDPOINT}/users`, {
+            userName: this.state.userName.value,
+            email: this.state.email.value,
+            password: this.state.password.value,
+          })          
+            .then(res => {
+                if (res.status === 201) {
+                    this.context.addUser(res.data)
+                    this.props.onLoginSuccess(res.data.id)
+                } 
+            })
+            .then(this.getIncidentsForUser())
+            .catch(error => {
+                if(error.response.status === 400) {
+                    this.invalid(error.response.data.error.message)
+                } else {
+                    this.invalid('There was a problem processing your request')
+                }
+            })
+        } else {
+          this.props.onLoginSuccess(this.context.user.id)
+          this.getIncidentsForUser()
+        }
+    }
 
-        this.props.onLoginSuccess()
+    getIncidentsForUser = () => {
+      const usersIncidents = this.context.incidents.filter(incident => incident.userId === this.context.user.id)
+      this.context.setUserIncidents(usersIncidents)
     }
 
     invalid = () => {
@@ -75,9 +112,21 @@ class LoginForm extends Component {
     return (
       <form className='login-form' onSubmit={this.handleSubmit}>
           {this.state.invalid.error &&  <ValidationError message={this.state.invalid.value}/>}
-            <input placeholder={(!this.context.user.email) ? "email" : this.context.user.email} type="text" name='email' id='email' value={(this.context.user.email) && this.context.user.email} onChange={e => this.handleEmailChange(e)} />
+          {/* {this.context.user.email  */}
+          {/* // ?
+          // <input placeholder={(!this.context.user.email) ? "email" : this.context.user.email} type="text" name='email' id='email' value={this.context.user.email} onChange={e => this.handleEmailChange(e)} />
+          // :  */}
+          <input placeholder={(!this.context.user.email) ? "email" : this.context.user.email} type="text" name='email' id='email' onChange={e => this.handleEmailChange(e)} />
+          {/* // } */}
+            
             {this.state.email.touched && <ValidationError message={emailError}/>}
-              <input placeholder="Password" type="password" name='password' id='password' value={(this.context.user.password) && this.context.user.password} onChange={e => this.handlePasswordChange(e)}/>
+          {/* {this.context.user.password 
+          ? */}
+          {/* <input placeholder="Password" type="password" name='password' id='password' value={this.context.user.password} onChange={e => this.handlePasswordChange(e)}/>
+          : */}
+          <input placeholder="Password" type="password" name='password' id='password'  onChange={e => this.handlePasswordChange(e)}/>
+          {/* } */}
+              
               <button type='submit'>
                   Log In
               </button>

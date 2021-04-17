@@ -3,6 +3,7 @@ import React, {Component} from 'react'
 const IncidentContext = React.createContext({
     incidents: [],
     user: {},
+    userIncidents: [],
     selectedIncident: null,
     location: [],
     loggedIn: false,
@@ -10,6 +11,8 @@ const IncidentContext = React.createContext({
     setError: () => {},
     clearError: () => {},
     setIncidents: () => {},
+    setUserIncidents: () => {},
+    addIncident: () => {},
     setSelectedIncident: () => {},
     setLocation: () => {}
 })
@@ -20,6 +23,7 @@ export class IncidentProvider extends Component {
     state = {
         incidents: [],
         user: {},
+        userIncidents: [],
         selectedIncident: null,
         location: [],
         error: null
@@ -35,6 +39,19 @@ export class IncidentProvider extends Component {
 
     addUser = user => {
         this.setState({user})
+    }
+
+    setUserIncidents = userIncidents => {
+        this.setState({userIncidents})
+    }
+
+    addIncident = incident => {
+        const mergeUserIncidents = [...this.state.userIncidents, incident]
+        const mergeAllIncidents = [...this.state.incidents, incident]
+        this.setState({
+            incidents: mergeAllIncidents,
+            userIncidents: mergeUserIncidents
+        })
     }
 
     setLocation = location => {
@@ -58,6 +75,7 @@ export class IncidentProvider extends Component {
         const value = {
             incidents: this.state.incidents,
             user: this.state.user,
+            userIncidents: this.state.userIncidents,
             selectedIncident: this.state.selectedIncident,
             location: this.state.location,
             loggedIn: this.state.loggedIn,
@@ -65,6 +83,8 @@ export class IncidentProvider extends Component {
             setError: this.setError,
             clearError: this.clearError,
             setIncidents: this.setIncidents,
+            setUserIncidents: this.setUserIncidents,
+            addIncident: this.addIncident,
             addUser: this.addUser,
             toggleLoggedIn: this.toggleLoggedIn,
             setSelectedIncident: this.setSelectedIncident,

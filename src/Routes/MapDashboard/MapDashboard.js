@@ -2,6 +2,7 @@ import React, {useState, useEffect, useLayoutEffect, useContext} from 'react'
 import Map from '../../components/Map/Map'
 import IncidentContext from '../../contexts/incidentContext'
 import AddIncident from '../../components/AddIncident/AddIncident'
+import UserIncidentList from '../../components/UserIncidentList/UserIncidentList'
 import './MapDashboard.css'
 
 function MapDashBoard() {
@@ -68,15 +69,7 @@ function MapDashBoard() {
             </div>
             
             <div className="client_incident_container" >
-               
-                    {selectedIncident && 
-                    <div>
-                        <h2>{selectedIncident.userName}</h2>
-                        <p>{selectedIncident.type}</p>
-                        <p>{selectedIncident.timeOfIncident}</p>
-                        <p>{selectedIncident.description}</p>
-                    </div>
-                    }
+              <UserIncidentList />
             </div>
         </div>
     )

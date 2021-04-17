@@ -1,11 +1,21 @@
-import React from 'react'
+import React, {useContext, useEffect, useState} from 'react'
+import IncidentContext from '../../contexts/incidentContext'
 import './FilterButton.css'
 
 function FilterButton({button, filterIncidents, active}) {
+    const value = useContext(IncidentContext)
+    const [filteredButtons, filterButtons] = useState(button)
+
+    useEffect(() => {
+        if(!value.loggedIn) {
+            filterButtons(button.filter(cat => cat !== 'Yours'))
+        }
+    }, [])
+
     return (
         <div className="filter-container">
             {
-                button.map((cat, i) => {
+                filteredButtons.map((cat, i) => {
                 return  <button 
                         key={i} 
                         type="button" 

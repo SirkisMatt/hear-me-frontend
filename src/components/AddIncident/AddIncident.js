@@ -25,22 +25,43 @@ function AddIncident({toggleAddIncident, toggleChooseLocation, chooseLocation}) 
         }
     }, [value.location])
 
-    // handleAddIncident = () => {
-    //     Axios.post(`${config.API_ENDPOINT}/incidents`)
-    // }
-
-    
-    
-    console.log(req)
+    const handleAddIncident = (e) => {
+        e.preventDefault(e)
+        let time = e.target['date'].value + e.target['time'].value
+        Axios.post(`${config.API_ENDPOINT}/incidents`, {
+            userId: value.user.id,
+            userName: value.user.userName,
+            timeOfIncident: time,
+            type: e.target['incidentOptions'].value,
+            description: e.target['description'].value,
+            coordinates: value.location
+        })
+            .then(res => {
+                value.addIncident(res.data)
+                console.log(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        
+         
+    //     // "id": 7,
+    //     // "userId": 3,
+    //     // "userName": "user3",
+    //     // "timeOfIncident": "2021-22-08 11:45:35",
+    //     // "type": "Verbal",
+    //     // "description": "lckxjzexcvbner mojni'vy;lcut kyrxjc ktvybune qcvqvrr3rv 3qv3qvc3qcv3rv 31v31v 1q3cvr",
+    //     // "coordinates": [-75.9876543211234, 45.111121536272049]
+    }
 
     return (
-        <form className="add_incident_form">
+        <form className="add_incident_form" onSubmit={(e) => handleAddIncident(e)}>
             <div className="form_content div_height">
                 <div className="incident_dropdown_container">
                 <label htmlFor="goal-type">What type of incident is this?</label>
                 <div className="incident_dropdown">
                     <div className="select">
-                        <select className="drop_down" name="GoalOptions" id="goal-options">
+                        <select className="drop_down" name="incidentOptions" id="goal-options">
                             <option value="gender">
                                 Gender
                             </option>
@@ -82,11 +103,11 @@ function AddIncident({toggleAddIncident, toggleChooseLocation, chooseLocation}) 
                         <textarea className="description" name="description" rows="10" cols="30" maxLength="100" placeholder='Describe the incident...' ></textarea>
                     <div>
                         <label>When did this happen?</label>
-                        <input type="date" id="complete_by" name="complete_by"/>
-                        <input type="time" id="complete_by" name="complete_by"/>
+                        <input type="date" id="complete_by" name="date"/>
+                        <input type="time" id="complete_by" name="time"/>
                     </div>
                     <div className="form_btn_container">
-                        <button className="form_btn" type='button'>Add Incident</button>
+                        <button className="form_btn" type='submit'>Add Incident</button>
                         <button className="form_btn" type="button" onClick={toggleAddIncident}>
                             Cancel
                         </button>

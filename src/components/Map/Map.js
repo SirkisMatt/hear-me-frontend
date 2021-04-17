@@ -11,15 +11,15 @@ import IncidentContext from '../../contexts/incidentContext'
 // import IncidentApiService from '../../services/incident-api-service'
 
     //Set categories for buttons
-const allCategories = ['All', ...new Set(incidentData.data.map(item => item.type))]
-
+    const allCategories = ['Yours', 'All', ...new Set(incidentData.data.map(item => item.type))]
 function Map(props) {
 
     const value = useContext(IncidentContext)
     const {loggedIn, width, height, chooseLocation} = props
     const [position, setPosition] = useState([45.4211, -75.6903])
     const [lat, lng] = position
-
+    
+    
 
 
         //set viewport of map
@@ -79,11 +79,16 @@ function Map(props) {
         //filter incidentData based on button pressed
     const filterIncidents = (button) => {
         setActive(button)
+        if(button === 'Yours') {
+            const userIncidents = value.incidents.filter(incident => incident.userId === value.user.id)
+            setIncidents(userIncidents)
+            return;
+        }
         if(button === 'All') {
             setIncidents(value.incidents)
             return;
         }
-        const filteredData = value.incidents.filter(incident => incident.type === button)
+        const filteredData = value.incidents.filter(incident => incident.type.toLowerCase() === button.toLowerCase())
         setIncidents(filteredData)
     }
 
@@ -156,8 +161,21 @@ function Map(props) {
                     <SearchBar getSearch={getSearch} setSearch={setSearch}/>
                     <FilterButton button={buttons} active={active} filterIncidents={filterIncidents} />
                 </div>
-                {incidents.map(incident => (
-                    <Marker key={incident.Id} longitude={incident.coordinates[0]} latitude={incident.coordinates[1]}>
+                {incidents.map((incident, i) => (
+                    ((incident.userId === value.user.id) && value.loggedIn)
+                    ?
+                    <Marker key={i} longitude={incident.coordinates[0]} latitude={incident.coordinates[1]}>
+                        <div>
+                            <button className="marker_btn" onClick={(e) => {
+                                e.preventDefault();
+                                setSelectedIncident(incident)
+                            }}>
+                            <h1>AAAAAAAA</h1>
+                            </button>
+                        </div>
+                    </Marker>
+                    :
+                    <Marker key={i} longitude={incident.coordinates[0]} latitude={incident.coordinates[1]}>
                         <div>
                             <button className="marker_btn" onClick={(e) => {
                                 e.preventDefault();

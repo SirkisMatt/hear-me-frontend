@@ -1,9 +1,12 @@
 import React, {Component} from 'react'
 import LoginForm from '../../components/LoginForm/LoginForm'
+import incidentContext from '../../contexts/incidentContext'
 import { Link } from 'react-router-dom'
 import './LoginPage.css'
 
 class LoginPage extends Component {
+
+    static contextType = incidentContext
 
     static defaultProps = {
         location: {},
@@ -12,9 +15,9 @@ class LoginPage extends Component {
         },
       }
     
-      handleLoginSuccess = () => {
+      handleLoginSuccess = (id) => {
         const {  history } = this.props
-        const destination = "/map-dashboard"
+        const destination = `/map-dashboard/${id}`
         history.push(destination)
       }
     
