@@ -26,24 +26,39 @@
 }
 
 .Gender {
-    background-color: #ef3381;
+    background-color: #5a50e9;
+    color: white;
     opacity: .9;
 }
 
+.Yours {
+    background-color: black;
+    color: white;
+}
+
+.All {
+    background-color: #5a50e9;
+    color: white;
+}
+
 .Race {
-    background-color: #f9cb55;
+    background-color: #5a50e9;
+    color: white;
 }
 
 .Sexual {
-    background-color: #48af73;
+    background-color: #5a50e9;
+    color: white;
 }
 
 .Physical {
-    background-color: #5b55e0;
+    background-color: #5a50e9;
+    color: white;
 }
 
 .Verbal {
-    background-color: #f75442;
+    background-color: #5a50e9;
+    color: white;
 }
 
 /* .btn:active, .btn:focus{

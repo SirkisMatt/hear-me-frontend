@@ -38,7 +38,6 @@ function AddIncident({toggleAddIncident, toggleChooseLocation, chooseLocation}) 
         })
             .then(res => {
                 value.addIncident(res.data)
-                console.log(res.data)
             })
             .catch(err => {
                 console.log(err)
@@ -57,11 +56,14 @@ function AddIncident({toggleAddIncident, toggleChooseLocation, chooseLocation}) 
     return (
         <form className="add_incident_form" onSubmit={(e) => handleAddIncident(e)}>
             <div className="form_content div_height">
-                <div className="incident_dropdown_container">
+                <div className="incident_dropdown_container column">
                 <label htmlFor="goal-type">What type of incident is this?</label>
                 <div className="incident_dropdown">
                     <div className="select">
                         <select className="drop_down" name="incidentOptions" id="goal-options">
+                            <option value="">
+                                Choose Type
+                            </option>
                             <option value="gender">
                                 Gender
                             </option>
@@ -81,32 +83,37 @@ function AddIncident({toggleAddIncident, toggleChooseLocation, chooseLocation}) 
                     </div>
                 </div>
                 </div>
+                    <div className="column">
                         {!chooseLocation
-                        ?
-                        <button className="location_btn" type='button' onClick={toggleChooseLocation}>Choose location on Map</button>
-                        :
-                        <div className="address_container">
-                             <p>
-                                {address}
-                            </p>
-                            <div>
-                                <button 
-                                onClick={toggleChooseLocation}
-                                >
-                                    Erase
-                                </button>
-                            </div>    
-                        </div>
+                            ?
+                            <button className="location_btn" type='button' onClick={() => toggleChooseLocation(true)}>Choose location on Map</button>
+                            :
+                            <div className="address_container">
+                                <p>
+                                    {address}
+                                </p>
+                                <div>
+                                    <button 
+                                    onClick={() => toggleChooseLocation(false)}
+                                    >
+                                        Erase
+                                    </button>
+                                </div>    
+                            </div>
                         }
-                        
-
-                        <textarea className="description" name="description" rows="10" cols="30" maxLength="100" placeholder='Describe the incident...' ></textarea>
-                    <div>
-                        <label>When did this happen?</label>
-                        <input type="date" id="complete_by" name="date"/>
-                        <input type="time" id="complete_by" name="time"/>
                     </div>
-                    <div className="form_btn_container">
+                        
+                        
+                        <div className="column">
+                            <textarea className="description" name="description" rows="10" cols="30" maxLength="100" placeholder='Describe the incident...' ></textarea>
+                        </div>
+                        
+                    <div className="column">
+                        <label>When did this happen?</label>
+                            <input type="datetime-local" className="complete_by" name="datetime-local"/>
+                            <input type="time" className="complete_by" name="time"/>
+                    </div>
+                    <div className="form_btn_container column">
                         <button className="form_btn" type='submit'>Add Incident</button>
                         <button className="form_btn" type="button" onClick={toggleAddIncident}>
                             Cancel

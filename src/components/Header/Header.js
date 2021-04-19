@@ -1,6 +1,7 @@
 import React, {useState, useContext} from 'react'
 import { Link } from 'react-router-dom'
 import IncidentContext from '../../contexts/incidentContext'
+import { ReactComponent as MegaPhone} from '../../svg/MegaPhone.svg'
 import './Header.css'
 
 function Header(props) {
@@ -62,7 +63,7 @@ function Header(props) {
         <nav className='Header'>
         <div className="logo">
             <Link to='/'>
-            Hear me
+            <MegaPhone className="megaphone"/>
             </Link>
         </div>
         {value.loggedIn

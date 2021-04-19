@@ -12,6 +12,8 @@ const IncidentContext = React.createContext({
     clearError: () => {},
     setIncidents: () => {},
     setUserIncidents: () => {},
+    deleteIncident: () => {},
+    editIncident: () => {},
     addIncident: () => {},
     setSelectedIncident: () => {},
     setLocation: () => {}
@@ -54,6 +56,32 @@ export class IncidentProvider extends Component {
         })
     }
 
+    deleteIncident = incidentId => {
+        const filterUserIncidents = this.state.userIncidents.filter(incident => incident.id !== parseInt(incidentId))
+        const filterIncidents = this.state.incidents.filter(incident => incident.id !== parseInt(incidentId))
+        this.setState({
+            incidents: filterIncidents,
+            userIncidents: filterUserIncidents
+        })
+    }
+
+    editIncident = incidentToEdit => {
+           //get index of index to edit
+    let indexUser = this.state.userIncidents.findIndex((incident => incident.id === parseInt(incidentToEdit.id)))
+    let index = this.state.incidents.findIndex((incident => incident.id === parseInt(incidentToEdit.id)))
+
+    let userIncidents = this.state.userIncidents
+    let incidents = this.state.incidents
+    userIncidents[indexUser] = incidentToEdit
+    incidents[index] = incidentToEdit
+
+    this.setState({
+        incidents: incidents,
+        userIncidents: userIncidents
+    })
+
+    }
+
     setLocation = location => {
         this.setState({location})
     }
@@ -85,6 +113,8 @@ export class IncidentProvider extends Component {
             setIncidents: this.setIncidents,
             setUserIncidents: this.setUserIncidents,
             addIncident: this.addIncident,
+            deleteIncident: this.deleteIncident,
+            editIncident: this.editIncident,
             addUser: this.addUser,
             toggleLoggedIn: this.toggleLoggedIn,
             setSelectedIncident: this.setSelectedIncident,

@@ -3,6 +3,11 @@
     overflow: clip;
 }
 
+.container {
+    width: 100vw;
+    height: 100vh;
+}
+
 
 .banner {
     background-color: rgb(72, 175, 115);
@@ -11,7 +16,6 @@
 }
 
 .header_wrapper {
-    width: 90%;
     align-items: center;
     display: flex;
     flex-wrap: wrap;
@@ -85,6 +89,7 @@ padding: 20px;
     height: 50px;
     border-radius: 8px;
     background-color: #ef3381;
+    color: white;
     cursor: pointer;
     font-size: 1.2em;
     font-weight: 700;

@@ -1,7 +1,8 @@
 import React, {useState, useEffect, useLayoutEffect, useContext} from 'react'
 import ReactMapGL, {Marker, Popup} from 'react-map-gl'
 import * as incidentData from '../../data/incidents.json'
-import { ReactComponent as Megaphone} from '../../svg/megaphone.svg'
+import { ReactComponent as IncidentPin} from '../../svg/IncidentPin.svg'
+import { ReactComponent as YourIncidentPin} from '../../svg/YourIncidentPin.svg'
 import FilterButton from '../FilterButtons/FilterButton'
 import SearchBar from '../SearchBar/SearchBar'
 import Axios from 'axios'
@@ -24,8 +25,8 @@ function Map(props) {
 
         //set viewport of map
     const [viewport, setViewport] = useState({
-        latitude: lat,
-        longitude: lng,
+        latitude: 45.4211,
+        longitude: -75.6903,
         width: width,
         height: height,
         zoom: 7        
@@ -170,7 +171,7 @@ function Map(props) {
                                 e.preventDefault();
                                 setSelectedIncident(incident)
                             }}>
-                            <h1>AAAAAAAA</h1>
+                            <YourIncidentPin className="incident_pin"/>
                             </button>
                         </div>
                     </Marker>
@@ -181,7 +182,7 @@ function Map(props) {
                                 e.preventDefault();
                                 setSelectedIncident(incident)
                             }}>
-                               <Megaphone className="megaphone"/>
+                               <IncidentPin className="incident_pin"/>
                             </button>
                         </div>
                     </Marker>
@@ -190,7 +191,7 @@ function Map(props) {
                 { ((location.length !== 0) && chooseLocation) &&
                     <Marker longitude={location[0]} latitude={location[1]}>
                         <div className="marker_btn">
-                            <Megaphone className="megaphone"/>
+                            <YourIncidentPin className="incident_pin"/>
                         </div>
                     </Marker>
                 }

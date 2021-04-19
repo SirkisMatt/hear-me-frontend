@@ -1,4 +1,4 @@
-import React, {useState, useLayoutEffect, useContext, useEffect} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import group from '../../Images/group.png'
 import phone from '../../Images/map-phone.png'
@@ -9,21 +9,6 @@ import './LandingPage.css'
 function LandingPage(props) {
 
     const value = useContext(IncidentContext)
-    const [size, setSize] = useState([0, 0])
-    const [error, toggleError] = useState(false)
-  
-    useLayoutEffect(() => {
-        function updateSize() {
-            setSize([window.innerWidth, window.innerHeight]);
-        }
-        window.addEventListener('resize', updateSize);
-        updateSize();
-        return () => window.removeEventListener('resize', updateSize);
-        }, []);
-  
-  
-  
-        const [width, height] = size
 
     useEffect(() => {
             value.toggleLoggedIn(false)
@@ -31,10 +16,7 @@ function LandingPage(props) {
     
         return (
             <div className='landing-page'>
-                <div className="banner header_wrapper" style={{
-                height: height,
-                width: width
-                }}>
+                <div className="banner header_wrapper container" >
                     <div className="img_container ">
                         <img src={megaphone} alt="megaphone" />
                     </div>
@@ -44,10 +26,7 @@ function LandingPage(props) {
                         </h1>
                     </div>
                 </div>
-                <div className="about" style={{
-                height: height,
-                width: width
-                }}>
+                <div className="about container">
                     <div className="about_sub_container row center">
                             <div className="width66 about_content">
                                 <header>
@@ -61,10 +40,7 @@ function LandingPage(props) {
                             </div>
                     </div>
                 </div>
-                <div className="community_container" style={{
-                height: height,
-                width: width
-                }}>
+                <div className="community_container container" >
                     <div className="community_content">
                         <header>
                         <h3>Look for other encounters</h3>

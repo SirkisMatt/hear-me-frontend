@@ -23,11 +23,19 @@ nav {
   font-size: 20px;
 }
 
+.logo a .megaphone {
+  width: 30px;
+  height: 30px;
+}
+
 .nav-links a {
   float: right;
+  Position: relative;
+  Transform: translateY(10%);
   color: #f2f2f2;
   padding: 1px 10px;
   text-decoration: none;
   font-size: 20px;
   text-align: right;
+  align-content: center;
 } 
