@@ -1,0 +1,12 @@
+.date_picker_container input[type=text] {
+    font-size: 1.1rem;
+    margin-top: 10px;
+}
+
+@media all and (max-width: 700px) {
+    .react-datepicker {
+        display: flex;
+        flex-direction: column;
+        z-index: 50;
+    }
+}

@@ -4,8 +4,8 @@ const Step1 = (props) => {
     const { data, handleTypeChange, toggleAddIncident, next } = props
     return (
         <form>
-             <div className="incident_dropdown_container column">
-                <label htmlFor="goal-type">What type of incident is this?</label>
+             <div className="input_container">
+                <label id="type_label" htmlFor="incident_type">What type of incident is this?</label>
                     <div className="incident_dropdown">
                         <div className="select">
                             <select className="drop_down" name="incidentOptions" id="goal-options" onChange={handleTypeChange}>
@@ -30,8 +30,10 @@ const Step1 = (props) => {
                             </select>
                         </div>
                     </div>
-                <button className="form_btn" type="button" onClick={toggleAddIncident}>Cancel</button>
-                <button className="form_btn" type="button" onClick={next}>Next</button>
+                <div className="form_btn_container">
+                    <button className="form_btn" type="button" onClick={toggleAddIncident}>Cancel</button>
+                    <button className="form_btn" type="button" onClick={next}>Next</button>
+                </div>
             </div>
         </form>
     )

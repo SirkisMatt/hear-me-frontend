@@ -1,15 +1,17 @@
 import React from 'react'
 
 const Step3 = (props) => {
-    const { data, handleChange, next, back, toggleAddIncident } = props
+    const { data, handleChange, next, back } = props
     return (
         <form>
-            <div className="column">
+            <div className="input_container">
                 <textarea className="description" name="description" rows="10" cols="30" maxLength="200" value={data.description} onChange={handleChange} placeholder='Describe the incident...' ></textarea>
             </div>
-            <button className="form_btn" type="button" onClick={toggleAddIncident}>Cancel</button>
-            <button className="form_btn" type="button" onClick={back}>Back</button> 
-            <button className="form_btn" type="button" onClick={next}>Next</button>
+
+            <div className="form_btn_container">
+                <button className="form_btn" type="button" onClick={back}>Back</button> 
+                <button className="form_btn" type="button" onClick={next}>Next</button>
+            </div>
         </form>
     )
 }
