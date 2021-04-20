@@ -39,7 +39,7 @@ function MapDashBoard() {
                 setMapSize(["100vw", "70vh"])
             }
          
-        }, [size, width])    
+        }, [size])    
 
     return (
         <div id="map_dashboard" className="map_dashboard">

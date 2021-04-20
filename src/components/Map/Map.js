@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useLayoutEffect, useContext} from 'react'
 import ReactMapGL, {Marker, Popup} from 'react-map-gl'
+import mapboxgl from "mapbox-gl";
 import * as incidentData from '../../data/incidents.json'
 import { ReactComponent as IncidentPin} from '../../svg/IncidentPin.svg'
 import { ReactComponent as YourIncidentPin} from '../../svg/YourIncidentPin.svg'
@@ -9,6 +10,8 @@ import Axios from 'axios'
 import './Map.css'
 import config from '../../config'
 import IncidentContext from '../../contexts/incidentContext'
+// eslint-disable-next-line import/no-webpack-loader-syntax
+mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 
     //Set categories for buttons
@@ -148,8 +151,6 @@ function Map(props) {
     return (
         <div className="map">
             <ReactMapGL 
-            width="100vw"
-            height="100vh"
             {...viewport}
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
             mapStyle="mapbox://styles/mattsirkis/ckncf6qz30ys917knendrnubf"
