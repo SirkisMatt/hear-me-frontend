@@ -16,7 +16,8 @@ const IncidentContext = React.createContext({
     editIncident: () => {},
     addIncident: () => {},
     setSelectedIncident: () => {},
-    setLocation: () => {}
+    setLocation: () => {},
+    toggleLoggedIn: () => {}
 })
 
 export default IncidentContext
@@ -28,6 +29,7 @@ export class IncidentProvider extends Component {
         userIncidents: [],
         selectedIncident: null,
         location: [],
+        loggedIn: false,
         error: null
     }
 
