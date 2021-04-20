@@ -10,7 +10,7 @@ const Step4 = (props) => {
                 <label id="time_title">When did this happen?</label>
                  <div className="time_input_container">
                     <DatepickerComponent handleTimeChange={(time) => handleTimeChange(time)}/>
-                </div>
+                </div>   
             </div>
             <div className="form_btn_container">
                 <button className="form_btn" type="button" onClick={back}>Back</button> 

@@ -18,20 +18,21 @@
     text-align: center;
   }
   
-  .signup-wrap input[type=text], input[type=password] {
+    
+  #user-name, #email, #password {
     width:100%;
-    box-sizing: border-box;
     padding: 12px;
     padding-left: 5px;
     padding-right: 5px;
-    background: rgba(0,0,0,0.10);
+    background: black;
     outline: none;
     border: none;
-    border-bottom: .5px dotted #fff;
     color: #fff;
     border-radius: 5px;
-    margin: 5px;
+    margin: auto;
+    margin-top: 10px;
     font-weight: bold;
+    font-size: 1.1rem;
   }
   
   .signup-wrap button {
@@ -40,17 +41,19 @@
     margin-top: 30px;
     outline: none;
     border: none;
-    background: rgb(23, 114, 54);
+    background: #ef3381;
     opacity: 0.7;
-    border-radius: 20px;
+    border-radius: 5px;
     font-size: 20px;
     font-weight: 600;
-    color: #fff;
+    color: white;
+    z-index: 10;
     cursor: pointer;
+    transition: 300ms;
   }
   
   .signup-wrap button:hover {
-    background-color: rgba(59, 119, 57, 0.8);
+    background-color: #f0106d;
   } 
   
   

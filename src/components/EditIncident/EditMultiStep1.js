@@ -1,14 +1,14 @@
 import React from 'react'
 
 const Step1 = (props) => {
-    const { data, handleTypeChange, toggleAddIncident, next } = props
+    const { data, handleTypeChange, toggleEdit, next } = props
     return (
         <form>
              <div className="input_container">
-                <label id="type_label" htmlFor="incident_type">What type of incident is this?</label>
+                <label id="type_label" htmlFor="incident_type">Change the type of Incident?</label>
                     <div className="incident_dropdown">
                         <div className="select">
-                            <select className="drop_down" name="incidentOptions" id="goal-options" onChange={handleTypeChange}>
+                            <select className="drop_down" name="incidentOptions" id="goal-options" defaultValue={data.type} onChange={handleTypeChange}>
                                 <option value="">
                                     Choose Type
                                 </option>
@@ -31,7 +31,7 @@ const Step1 = (props) => {
                         </div>
                     </div>
                 <div className="form_btn_container">
-                    <button className="form_btn" type="button" onClick={toggleAddIncident}>Cancel</button>
+                    <button className="form_btn" type="button" onClick={toggleEdit}>Cancel</button>
                     <button className="form_btn" type="button" onClick={next} disabled={data.type.length === 0}>Next</button>
                 </div>
             </div>

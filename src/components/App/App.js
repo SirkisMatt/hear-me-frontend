@@ -7,6 +7,7 @@ import LoginPage from '../../Routes/LoginPage/LoginPage'
 import RegistrationPage from '../../Routes/RegistrationPage/RegistrationPage'
 import MapPage from '../../Routes/MapPage/MapPage'
 import MapDashboard from '../../Routes/MapDashboard/MapDashboard'
+import NotFoundPage from '../../Routes/NotFoundPage/NotFoundPage'
 import Axios from 'axios'
 import config from '../../config'
 import IncidentContext from '../../contexts/incidentContext'
@@ -22,7 +23,7 @@ function App() {
             if (res.status === 200) {
                 value.setIncidents(res.data)
               } else {
-                throw new Error
+                throw new Error()
               }
         }).catch(err => {
             value.setError(err)
@@ -54,6 +55,7 @@ function App() {
           path={'/map-dashboard'}
           component={MapDashboard}
           />
+          <Route component={NotFoundPage} />
         </Switch>
       </>
     )

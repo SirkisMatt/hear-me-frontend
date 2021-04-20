@@ -1,9 +1,11 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, {useContext, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import group from '../../Images/group.png'
 import phone from '../../Images/map-phone.png'
 import megaphone from '../../Images/megaphone.png'
 import IncidentContext from '../../contexts/incidentContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import './LandingPage.css'
 
 function LandingPage(props) {
@@ -16,29 +18,35 @@ function LandingPage(props) {
     
         return (
             <div className='landing-page'>
-                <div className="banner header_wrapper container" >
-                    <div className="img_container ">
-                        <img src={megaphone} alt="megaphone" />
+                <div className="container" >
+                    <div className="banner">
+                        <div className="header_wrapper">
+                            <div className="img_container ">
+                                <img src={megaphone} alt="megaphone" />
+                            </div>
+                            <div className="header_container">
+                                <h1 className="title">
+                                    Hear <br/>me
+                                </h1>
+                            </div>
+                        </div>
                     </div>
-                    <div className="header_container">
-                        <h1 className="title">
-                            Hear <br /> me
-                        </h1>
-                    </div>
+                    <button className="arrow_down_btn"><FontAwesomeIcon className="arrow_down" icon={faChevronDown}/></button>
                 </div>
                 <div className="about container">
-                    <div className="about_sub_container row center">
-                            <div className="width66 about_content">
+                    <div className="about_sub_container">
+                            <div className="about_content">
                                 <header>
                                 <h3>Anonymously share your experience</h3>
                                 </header>
-                                <p>Share a description of the incident and post the location.</p>
+                                <p>If you experience a form of discrimination or abuse, you can share a description of the incident and post the location. <strong>Be Heard</strong></p>
                                 <Link to="/login"><button className="landing_btn">Post an Incident</button></Link>
                             </div>
-                            <div className="width33 phone">
+                            <div className="phone">
                                 <img src={phone} alt="hand holding phone displaying map" />
                             </div>
                     </div>
+                    
                 </div>
                 <div className="community_container container" >
                     <div className="community_content">

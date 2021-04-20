@@ -1,6 +1,7 @@
 .date_picker_container input[type=text] {
     font-size: 1.1rem;
     margin-top: 10px;
+    width: 100%;
 }
 
 @media all and (max-width: 700px) {

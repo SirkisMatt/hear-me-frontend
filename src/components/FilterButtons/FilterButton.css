@@ -6,6 +6,7 @@
     text-align: center;
     justify-content: space-between;
     z-index: 1;
+    margin-top: 10px;
 }
 
 .filter-container button {

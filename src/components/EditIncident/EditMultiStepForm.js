@@ -1,24 +1,31 @@
-import React, { useState, useContext } from 'react'
-import Step1 from "./MultiStep1";
-import Step2 from "./MultiStep2";
-import Step3 from "./MultiStep3";
-import Step4 from "./MultiStep4";
-import Submit from "./MultiStepSubmit";
+import React, { useState, useContext, useEffect } from 'react'
+import Step1 from "./EditMultiStep1";
+import Step2 from "./EditMultiStep2";
+import Step3 from "./EditMultiStep3";
+import Step4 from "./EditMultiStep4";
+import Submit from "./EditMultiStepSubmit";
 import config from '../../config'
 import Axios from 'axios'
 import IncidentContext from '../../contexts/incidentContext'
 
-const MultiStepForm = (props) => {
+const EditMultiStepForm = (props) => {
     const value = useContext(IncidentContext)
-    const { toggleChooseLocation, chooseLocation, toggleAddIncident } = props
+    const { toggleChooseLocation, chooseLocation, toggleEdit, incidentToEdit, incidentToEditAddress } = props
     const [currentStep, setCurrentStep] = useState(1)
     const [formData, setFormData] = useState({
-        type: "",
-        coordinates: value.location,
-        address: "",
-        description: "",
-        timeOfIncident: ""
+        type: incidentToEdit.type,
+        coordinates: incidentToEdit.coordinates,
+        address: incidentToEditAddress,
+        description: incidentToEdit.description,
+        timeOfIncident: incidentToEdit.timeOfIncident
     })
+
+    useEffect(() => {
+        setFormData({
+            ...formData,
+            coordinates: value.location,
+        })
+    }, [value.location])
 
     const handleChange = (event) => {
         setFormData({
@@ -65,17 +72,17 @@ const MultiStepForm = (props) => {
     }
 
     const handleSubmit = () => {
-        Axios.post(`${config.API_ENDPOINT}/incidents`, {
+        Axios.patch(`${config.API_ENDPOINT}/incidents/${incidentToEdit.id}`, {
             userId: value.user.id,
             userName: value.user.userName,
             timeOfIncident: formData.timeOfIncident,
             type: formData.type,
             description: formData.description,
-            coordinates: value.location,
+            coordinates: formData.coordinates,
         })
             .then(res => {
-                value.addIncident(res.data)
-                toggleAddIncident()
+                value.editIncident(res.data)
+                toggleEdit()
             })
             .catch(err => {
                 alert("Sorry there was problem processing your request")
@@ -87,7 +94,7 @@ const MultiStepForm = (props) => {
             return (
                 <Step1 
                 data={formData}
-                toggleAddIncident={toggleAddIncident}
+                toggleEdit={toggleEdit}
                 handleTypeChange={handleTypeChange}
                 next={next}
                 />
@@ -99,7 +106,6 @@ const MultiStepForm = (props) => {
                 setAddress={(address) => setAddress(address)}
                 toggleChooseLocation={toggleChooseLocation}
                 chooseLocation={chooseLocation}
-                toggleAddIncident={toggleAddIncident}
                 nextLocation={nextLocation}
                 backLocation={backLocation}
                 />
@@ -109,7 +115,6 @@ const MultiStepForm = (props) => {
                 <Step3 
                 data={formData}
                 handleChange={handleChange}
-                toggleAddIncident={toggleAddIncident}
                 next={next}
                 back={back}
                 />
@@ -119,15 +124,14 @@ const MultiStepForm = (props) => {
                 <Step4 
                 data={formData}
                 handleTimeChange={(time) => handleTimeChange(time)}
-                toggleAddIncident={toggleAddIncident}
                 next={next}
                 back={back}
                 />
             ) 
         default:
-            return <Submit data={formData} back={back} submit={handleSubmit} toggleAddIncident={toggleAddIncident} />
+            return <Submit data={formData} back={back} submit={handleSubmit} toggleEdit={toggleEdit} />
     }
 
 }
 
-export default MultiStepForm;
+export default EditMultiStepForm;

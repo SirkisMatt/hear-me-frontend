@@ -6,22 +6,26 @@ import './DatepickerComponent.css'
 
 class DatepickerComponent extends Component {
 
+    static defaultProps = {
+        handleTimeChange: () => ('')
+    }
+
     state = {
         startDate: new Date()
     };
 
-    handleChange = (date, event) => {
-        console.log('onChange', date, event);
+    handleChange = (date) => {
         this.setState({
             startDate: date
         });
+
+        this.props.handleTimeChange(date)
     };
 
     
 
 
     render() {
-        console.log(this.state.startDate)
         return (
             <div className="date_picker_container">
                 <DatePicker

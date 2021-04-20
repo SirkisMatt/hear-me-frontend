@@ -24,9 +24,9 @@ class LoginPage extends Component {
     render() {
         return (
             <div className="login-wrap">
-                <h2>Login Here</h2>
+                <h2>Login</h2>
                 <LoginForm onLoginSuccess={this.handleLoginSuccess}/>
-                <p>Don't have an account? <Link to='/signup' className="sign-up">Sign Up</Link></p>
+                <p id="sign_up_string">Don't have an account? <Link to='/register' className="sign-up">Sign Up</Link></p>
             </div>
         )
     }

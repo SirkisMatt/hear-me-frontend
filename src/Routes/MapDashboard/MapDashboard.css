@@ -5,6 +5,10 @@
     flex-direction: column;
 } */
 
+html {
+    scroll-behavior: smooth;
+  }
+
 
 .client_incident_container {
     min-height: 95vh;
@@ -195,6 +199,19 @@ time form section
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+
+/* 
+*
+*
+Submit section
+*
+*
+*/
+
+#form_submit_btn {
+    width: 100%;
+    height: 40px;
 }
 
 /*

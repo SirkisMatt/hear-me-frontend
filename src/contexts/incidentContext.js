@@ -91,7 +91,6 @@ export class IncidentProvider extends Component {
     }
 
     setError = error => {
-        console.log(error)
         this.setState({ error })
     }
 

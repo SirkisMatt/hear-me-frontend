@@ -9,7 +9,7 @@ import Axios from 'axios'
 import './Map.css'
 import config from '../../config'
 import IncidentContext from '../../contexts/incidentContext'
-// import IncidentApiService from '../../services/incident-api-service'
+
 
     //Set categories for buttons
     const allCategories = ['Yours', 'All', ...new Set(incidentData.data.map(item => item.type))]
@@ -17,11 +17,6 @@ function Map(props) {
 
     const value = useContext(IncidentContext)
     const {loggedIn, width, height, chooseLocation} = props
-    const [position, setPosition] = useState([45.4211, -75.6903])
-    const [lat, lng] = position
-    
-    
-
 
         //set viewport of map
     const [viewport, setViewport] = useState({
@@ -40,6 +35,10 @@ function Map(props) {
     
     const {selectedIncident, setSelectedIncident, location, setLocation} = value
 
+    useEffect(() => {
+        setIncidents(value.incidents)
+    }, [value.incidents])
+
 
         //setIncidentData
     useEffect(() => {
@@ -54,12 +53,13 @@ function Map(props) {
                 if (res.status === 200) {
                     value.setIncidents(res.data)
                   } else {
-                    throw new Error
+                    throw new Error()
                   }
             }).catch(err => {
                 value.setError(err)
             })
 
+            //Commented out for development phase.. not enough data to display so dummy data in place
         // if(navigator.geolocation) {
         //     navigator.geolocation.getCurrentPosition(
         //         function(position) {
@@ -97,7 +97,7 @@ function Map(props) {
         Axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${search}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`)
             .then(res => {
                 if(res.data.features.length === 0) {
-                    console.log("Sorry there is no location with that name.")
+                    alert("Sorry there is no location with that name.")
                 } else {
                     setViewport({
                         latitude: res.data.features[0].center[1],
@@ -110,7 +110,7 @@ function Map(props) {
                 
             })
             .catch(err => {
-                console.log(err)
+                alert("Sorry there is no location with that name.")
             })
     }
   
@@ -163,26 +163,19 @@ function Map(props) {
                     <FilterButton button={buttons} active={active} filterIncidents={filterIncidents} />
                 </div>
                 {incidents.map((incident, i) => (
-                    ((incident.userId === value.user.id) && value.loggedIn)
-                    ?
                     <Marker key={i} longitude={incident.coordinates[0]} latitude={incident.coordinates[1]}>
                         <div>
                             <button className="marker_btn" onClick={(e) => {
                                 e.preventDefault();
                                 setSelectedIncident(incident)
                             }}>
+                            
+                            {((incident.userId === value.user.id) && value.loggedIn)
+                            ?
                             <YourIncidentPin className="incident_pin"/>
-                            </button>
-                        </div>
-                    </Marker>
-                    :
-                    <Marker key={i} longitude={incident.coordinates[0]} latitude={incident.coordinates[1]}>
-                        <div>
-                            <button className="marker_btn" onClick={(e) => {
-                                e.preventDefault();
-                                setSelectedIncident(incident)
-                            }}>
-                               <IncidentPin className="incident_pin"/>
+                            :
+                            <IncidentPin className="incident_pin"/>
+                            }      
                             </button>
                         </div>
                     </Marker>

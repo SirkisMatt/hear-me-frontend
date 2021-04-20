@@ -1,27 +1,25 @@
 import React, {useState, useEffect, useLayoutEffect, useContext} from 'react'
 import Map from '../../components/Map/Map'
 import IncidentContext from '../../contexts/incidentContext'
-import AddIncident from '../../components/AddIncident/AddIncident'
 import UserIncidentList from '../../components/UserIncidentList/UserIncidentList'
-import EditIncident from '../../components/EditIncident/EditIncident'
 import MultiStepForm from '../../components/AddIncident/MultiStepForm'
+import EditMultiStepForm from '../../components/EditIncident/EditMultiStepForm'
 import './MapDashboard.css'
 
 function MapDashBoard() {
 
     const value = useContext(IncidentContext)
 
-    const {selectedIncident} = value
-    // const [selectedIncident, setSelectedIncident] = useState(null);
        
     const [size, setSize] = useState([0, 0])
-    // const [location, setLocation] = useState([0,0])
 
     const [mapSize, setMapSize] = useState(["100vW", "70vh"])
     const [incidentToggle, toggleAddIncident] = useState(false)
+    const [incidentToEditAddress, setAddress] = useState('')
     const [edit, toggleEdit] = useState(false)
     const [incidentToEdit, setIncidentToEdit] = useState({})
     const [chooseLocation, toggleChooseLocation] = useState(false)
+
   
     useLayoutEffect(() => {
         function updateSize() {
@@ -41,10 +39,10 @@ function MapDashBoard() {
                 setMapSize(["100vw", "70vh"])
             }
          
-        }, [size])    
+        }, [size, width])    
 
     return (
-        <div className="map_dashboard">
+        <div id="map_dashboard" className="map_dashboard">
             <div className="map_container" style={{
             height: height,
             width: width
@@ -54,38 +52,40 @@ function MapDashBoard() {
                 width={mapWidth}
                 height={mapHeight}
                 chooseLocation={chooseLocation}
-                // setLocation={(location) => setLocation(location)}
-                // location={location}
                 />
-            <div className="form_container">
-                {edit 
-                ?
-                <EditIncident toggleEdit={() => toggleEdit(!edit)} toggleChooseLocation={(boolean) => toggleChooseLocation(boolean)} incidentToEdit={incidentToEdit} chooseLocation={chooseLocation} />
-                :
-                !incidentToggle 
+                <div id="multi_step_form" className="form_container">
+                    {edit 
+                    ?
+                    <EditMultiStepForm 
+                    toggleEdit={() => toggleEdit(!edit)} 
+                    toggleChooseLocation={(boolean) => toggleChooseLocation(boolean)} 
+                    incidentToEdit={incidentToEdit} 
+                    chooseLocation={chooseLocation} 
+                    incidentToEditAddress={incidentToEditAddress}
+                    />
+                    :
+                    !incidentToggle 
                     ?
                     <button className="add_incident_button" onClick={() => toggleAddIncident(true)}>Add an Incident</button>
                     :
-                    // <AddIncident 
-                    // chooseLocation={chooseLocation} 
-                    // toggleChooseLocation={(boolean) => toggleChooseLocation(boolean)} 
-                    // toggleAddIncident={() => toggleAddIncident(!incidentToggle)}
-                    // />
                     <MultiStepForm  
                     chooseLocation={chooseLocation} 
                     toggleChooseLocation={(boolean) => toggleChooseLocation(boolean)} 
                     toggleAddIncident={() => toggleAddIncident(!incidentToggle)}
-                    />
+                    />  
+                    }
                     
-                }
-                
-            </div>
+                </div>
             </div>
             {(value.userIncidents.length > 0) 
             && 
-            <div className="client_incident_container" >
+            <div id="incident_list" className="client_incident_container" >
                 <h2>Your Incidents</h2>
-              <UserIncidentList toggleEdit={() => toggleEdit(!edit)} setIncidentToEdit={(incidentToEdit) => setIncidentToEdit(incidentToEdit)}/>
+              <UserIncidentList 
+              toggleEdit={(boolean) => toggleEdit(boolean)} 
+              setIncidentToEdit={(incidentToEdit) => setIncidentToEdit(incidentToEdit)}
+              setAddress={(address) => setAddress(address)}
+              />
             </div>
             }
             

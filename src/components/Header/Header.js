@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useContext} from 'react'
 import { Link } from 'react-router-dom'
 import IncidentContext from '../../contexts/incidentContext'
 import { ReactComponent as MegaPhone} from '../../svg/MegaPhone.svg'
@@ -7,7 +7,6 @@ import './Header.css'
 function Header(props) {
 
     const value = useContext(IncidentContext)
-    const [loggedIn, updateStatus] = useState(false)
 
     const handleLogoutClick = () => {
         // props.history.push('/')

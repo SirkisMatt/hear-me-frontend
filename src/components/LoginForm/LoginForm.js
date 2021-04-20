@@ -111,25 +111,11 @@ class LoginForm extends Component {
       const emailError = this.ValidateEmail();
     return (
       <form className='login-form' onSubmit={this.handleSubmit}>
-          {this.state.invalid.error &&  <ValidationError message={this.state.invalid.value}/>}
-          {/* {this.context.user.email  */}
-          {/* // ?
-          // <input placeholder={(!this.context.user.email) ? "email" : this.context.user.email} type="text" name='email' id='email' value={this.context.user.email} onChange={e => this.handleEmailChange(e)} />
-          // :  */}
-          <input placeholder={(!this.context.user.email) ? "email" : this.context.user.email} type="text" name='email' id='email' onChange={e => this.handleEmailChange(e)} />
-          {/* // } */}
-            
+            {this.state.invalid.error &&  <ValidationError message={this.state.invalid.value}/>}
+            <input placeholder={(!this.context.user.email) ? "email" : this.context.user.email} type="text" name='email' id='email' onChange={e => this.handleEmailChange(e)} />
             {this.state.email.touched && <ValidationError message={emailError}/>}
-          {/* {this.context.user.password 
-          ? */}
-          {/* <input placeholder="Password" type="password" name='password' id='password' value={this.context.user.password} onChange={e => this.handlePasswordChange(e)}/>
-          : */}
-          <input placeholder="Password" type="password" name='password' id='password'  onChange={e => this.handlePasswordChange(e)}/>
-          {/* } */}
-              
-              <button type='submit'>
-                  Log In
-              </button>
+            <input placeholder="Password" type="password" name='password' id='password'  onChange={e => this.handlePasswordChange(e)}/> 
+            <button type='submit'>Login</button>
       </form>
     );
   }
