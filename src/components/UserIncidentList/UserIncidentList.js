@@ -9,22 +9,23 @@ function UserIncidentList({toggleEdit, setIncidentToEdit, setAddress}) {
     const value = useContext(IncidentContext)
 
     const handleDeleteIncident = (id) => {
-        Axios.delete(`${config.API_ENDPOINT}/incidents/${id}`)
-            .then(res => {
-                value.deleteIncident(id)
-            })
-            .catch(err => {
-                alert("Sorry there was a problem processing your request")
-            })   
+        // Axios.delete(`${config.API_ENDPOINT}/incidents/${id}`)
+        //     .then(res => {
+        //         value.deleteIncident(id)
+        //     })
+        //     .catch(err => {
+        //         alert("Sorry there was a problem processing your request")
+        //     }) 
+            value.deleteIncident(id)  
     }
 
     const handleSetEditIncident = (incident) => {
-        Axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.place/${incident.coordinates}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`)
+        Axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${incident.coordinates}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`)
             .then(res => {
                 setAddress(res.data.features[0].place_name)
             })
             .catch(err => {
-                setAddress("Sorry there was a problem fetching that address")
+                setAddress("Sorry there was a problem fetching that address") 
             })
         setIncidentToEdit(incident)
         toggleEdit(true)

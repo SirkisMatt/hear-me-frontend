@@ -5,7 +5,8 @@ import Step3 from "./EditMultiStep3";
 import Step4 from "./EditMultiStep4";
 import Submit from "./EditMultiStepSubmit";
 import config from '../../config'
-import Axios from 'axios'
+import { v4 as uuidv4 } from 'uuid';
+// import Axios from 'axios'
 import IncidentContext from '../../contexts/incidentContext'
 
 const EditMultiStepForm = (props) => {
@@ -72,21 +73,33 @@ const EditMultiStepForm = (props) => {
     }
 
     const handleSubmit = () => {
-        Axios.patch(`${config.API_ENDPOINT}/incidents/${incidentToEdit.id}`, {
-            userId: value.user.id,
-            userName: value.user.userName,
-            timeOfIncident: formData.timeOfIncident,
-            type: formData.type,
-            description: formData.description,
-            coordinates: formData.coordinates,
-        })
-            .then(res => {
-                value.editIncident(res.data)
-                toggleEdit()
+        // Axios.patch(`${config.API_ENDPOINT}/incidents/${incidentToEdit.id}`, {
+        //     userId: value.user.id,
+        //     userName: value.user.userName,
+        //     timeOfIncident: formData.timeOfIncident,
+        //     type: formData.type,
+        //     description: formData.description,
+        //     coordinates: formData.coordinates,
+        // })
+        //     .then(res => {
+        //         value.editIncident(res.data)
+        //         toggleEdit()
+        //     })
+        //     .catch(err => {
+        //         alert("Sorry there was problem processing your request")
+        //     })
+
+            value.editIncident({ 
+                'id': incidentToEdit.id,
+                'userId': value.user.id,
+                'userName': value.user.userName,
+                'timeOfIncident': formData.timeOfIncident.toString(),
+                'type': formData.type,
+                'description': formData.description,
+                'coordinates': formData.coordinates,
             })
-            .catch(err => {
-                alert("Sorry there was problem processing your request")
-            })
+            console.log(incidentToEdit.id)
+            toggleEdit()
     }
 
     switch (currentStep) {

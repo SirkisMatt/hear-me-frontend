@@ -1,7 +1,7 @@
 import React, {useContext} from 'react'
 import { Link } from 'react-router-dom'
 import IncidentContext from '../../contexts/incidentContext'
-import { ReactComponent as MegaPhone} from '../../svg/MegaPhone.svg'
+import { ReactComponent as MegaPhone} from '../../svg/MegaPhone.svg' 
 import './Header.css'
 
 function Header(props) {

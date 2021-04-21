@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import ValidationError from '../Utils/ValidationError'
 import IncidentContext from '../../contexts/incidentContext'
 import config from '../../config'
+import { v4 as uuidv4 } from 'uuid';
 import Axios from 'axios';
 
 class LoginForm extends Component {
@@ -66,25 +67,32 @@ class LoginForm extends Component {
     handleSubmit = (e) => {
         e.preventDefault(e)
         if(!this.context.user.id) {
-          Axios.post(`${config.API_ENDPOINT}/users`, {
-            userName: this.state.userName.value,
-            email: this.state.email.value,
-            password: this.state.password.value,
-          })          
-            .then(res => {
-                if (res.status === 201) {
-                    this.context.addUser(res.data)
-                    this.props.onLoginSuccess(res.data.id)
-                } 
+        //   Axios.post(`${config.API_ENDPOINT}/users`, {
+        //     userName: this.state.userName.value,
+        //     email: this.state.email.value,
+        //     password: this.state.password.value,
+        //   })          
+        //     .then(res => {
+        //         if (res.status === 201) {
+        //             this.context.addUser(res.data)
+        //             this.props.onLoginSuccess(res.data.id)
+        //         } 
+        //     })
+        //     .then(this.getIncidentsForUser())
+        //     .catch(error => {
+        //         if(error.response.status === 400) {
+        //             this.invalid(error.response.data.error.message)
+        //         } else {
+        //             this.invalid('There was a problem processing your request')
+        //         }
+        //     })
+            this.context.addUser({
+                'id': uuidv4(),
+                'userName': this.state.userName.value,
+                'email': this.state.email.value,
+                'password': this.state.password.value,
             })
-            .then(this.getIncidentsForUser())
-            .catch(error => {
-                if(error.response.status === 400) {
-                    this.invalid(error.response.data.error.message)
-                } else {
-                    this.invalid('There was a problem processing your request')
-                }
-            })
+            this.props.onLoginSuccess(this.context.user.id)
         } else {
           this.props.onLoginSuccess(this.context.user.id)
           this.getIncidentsForUser()

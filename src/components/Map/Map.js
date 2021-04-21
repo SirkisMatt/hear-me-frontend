@@ -15,7 +15,7 @@ mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worke
 
 
     //Set categories for buttons
-    const allCategories = ['Yours', 'All', ...new Set(incidentData.data.map(item => item.type))]
+    const allCategories = ['Yours', 'All', ...new Set(incidentData.incidents.map(item => item.type))]
 function Map(props) {
 
     const value = useContext(IncidentContext)
@@ -50,17 +50,8 @@ function Map(props) {
         } else {
             value.toggleLoggedIn(false)
         }
-        // value.setIncidents(incidentData.data)
-        Axios.get(`${config.API_ENDPOINT}/incidents`)
-            .then(res => {
-                if (res.status === 200) {
-                    value.setIncidents(res.data)
-                  } else {
-                    throw new Error()
-                  }
-            }).catch(err => {
-                value.setError(err)
-            })
+        value.setIncidents(incidentData.incidents)
+        
 
             //Commented out for development phase.. not enough data to display so dummy data in place
         // if(navigator.geolocation) {
@@ -84,7 +75,7 @@ function Map(props) {
     const filterIncidents = (button) => {
         setActive(button)
         if(button === 'Yours') {
-            const userIncidents = value.incidents.filter(incident => incident.userId === value.user.id)
+            const userIncidents = value.incidents.filter(incident => parseFloat(incident.userId) === parseFloat(value.user.id))
             setIncidents(userIncidents)
             return;
         }

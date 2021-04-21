@@ -5,7 +5,7 @@ import Step3 from "./MultiStep3";
 import Step4 from "./MultiStep4";
 import Submit from "./MultiStepSubmit";
 import config from '../../config'
-import Axios from 'axios'
+import { v4 as uuidv4 } from 'uuid';
 import IncidentContext from '../../contexts/incidentContext'
 
 const MultiStepForm = (props) => {
@@ -65,21 +65,17 @@ const MultiStepForm = (props) => {
     }
 
     const handleSubmit = () => {
-        Axios.post(`${config.API_ENDPOINT}/incidents`, {
-            userId: value.user.id,
-            userName: value.user.userName,
-            timeOfIncident: formData.timeOfIncident,
-            type: formData.type,
-            description: formData.description,
-            coordinates: value.location,
-        })
-            .then(res => {
-                value.addIncident(res.data)
-                toggleAddIncident()
+      
+            value.addIncident({
+                'id': uuidv4(),
+                'userId': value.user.id,
+                'userName': value.user.userName,
+                'timeOfIncident': formData.timeOfIncident.toString(),
+                'type': formData.type,
+                'description': formData.description,
+                'coordinates': value.location,
             })
-            .catch(err => {
-                alert("Sorry there was problem processing your request")
-            })
+            toggleAddIncident()
     }
 
     switch (currentStep) {
