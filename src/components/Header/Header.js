@@ -2,6 +2,7 @@ import React, {useContext} from 'react'
 import { Link } from 'react-router-dom'
 import IncidentContext from '../../contexts/incidentContext'
 import { ReactComponent as MegaPhone} from '../../svg/MegaPhone.svg' 
+import TokenService from '../../services/token-service'
 import './Header.css'
 
 function Header(props) {
@@ -9,9 +10,10 @@ function Header(props) {
     const value = useContext(IncidentContext)
 
     const handleLogoutClick = () => {
-        // props.history.push('/')
         value.toggleLoggedIn()
-        // TokenService.clearAuthToken()
+        value.addUser({})
+        value.setUserIncidents([])
+        TokenService.clearAuthToken()
       }
     
     const renderLogoutLink = () => {
@@ -61,11 +63,13 @@ function Header(props) {
     return (
         <nav className='Header'>
         <div className="logo">
-            <Link to='/'>
+            <Link
+            onClick={handleLogoutClick} 
+            to='/'>
             <MegaPhone className="megaphone"/>
             </Link>
         </div>
-        {value.loggedIn
+        {TokenService.hasAuthToken()
             ? renderLogoutLink()
             : renderLoginLink()}
         </nav>

@@ -4,14 +4,13 @@ import Step2 from "./EditMultiStep2";
 import Step3 from "./EditMultiStep3";
 import Step4 from "./EditMultiStep4";
 import Submit from "./EditMultiStepSubmit";
-import config from '../../config'
-import { v4 as uuidv4 } from 'uuid';
-// import Axios from 'axios'
+import {config} from '../../config'
+import Axios from 'axios'
 import IncidentContext from '../../contexts/incidentContext'
 
 const EditMultiStepForm = (props) => {
     const value = useContext(IncidentContext)
-    const { toggleChooseLocation, chooseLocation, toggleEdit, incidentToEdit, incidentToEditAddress } = props
+    const { toggleChooseLocation, chooseLocation, toggleEdit, incidentToEdit, incidentToEditAddress, token } = props
     const [currentStep, setCurrentStep] = useState(1)
     const [formData, setFormData] = useState({
         type: incidentToEdit.type,
@@ -26,6 +25,8 @@ const EditMultiStepForm = (props) => {
             ...formData,
             coordinates: value.location,
         })
+         //do not want to reset form data
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value.location])
 
     const handleChange = (event) => {
@@ -72,34 +73,30 @@ const EditMultiStepForm = (props) => {
         toggleChooseLocation(false)
     }
 
-    const handleSubmit = () => {
-        // Axios.patch(`${config.API_ENDPOINT}/incidents/${incidentToEdit.id}`, {
-        //     userId: value.user.id,
-        //     userName: value.user.userName,
-        //     timeOfIncident: formData.timeOfIncident,
-        //     type: formData.type,
-        //     description: formData.description,
-        //     coordinates: formData.coordinates,
-        // })
-        //     .then(res => {
-        //         value.editIncident(res.data)
-        //         toggleEdit()
-        //     })
-        //     .catch(err => {
-        //         alert("Sorry there was problem processing your request")
-        //     })
-
-            value.editIncident({ 
-                'id': incidentToEdit.id,
-                'userId': value.user.id,
-                'userName': value.user.userName,
-                'timeOfIncident': formData.timeOfIncident.toString(),
-                'type': formData.type,
-                'description': formData.description,
-                'coordinates': formData.coordinates,
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        Axios.patch(`${config.API_ENDPOINT}/incident/${incidentToEdit.id}`, 
+            {
+                timeOfIncident: formData.timeOfIncident,
+                type: formData.type,
+                description: formData.description,
+                coordinates: value.location,
+            },
+            {
+                headers: {
+                    'authorization': `bearer ${token}`,
+                }
+            }
+            )
+            .then(res => {
+                if(res.status === 201) {
+                    value.editIncident(res.data)
+                }
             })
-            console.log(incidentToEdit.id)
-            toggleEdit()
+            .catch(error => {
+                alert(error.response.data.error)
+            })    
+        toggleEdit()
     }
 
     switch (currentStep) {

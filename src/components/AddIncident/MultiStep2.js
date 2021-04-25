@@ -20,6 +20,8 @@ const Step2 = (props) => {
                 setAddress("Sorry there was a problem fetching that address")
             })
         }
+            //call only needed when location is updated
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value.location])
 
     return (

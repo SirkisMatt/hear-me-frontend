@@ -4,13 +4,13 @@ import Step2 from "./MultiStep2";
 import Step3 from "./MultiStep3";
 import Step4 from "./MultiStep4";
 import Submit from "./MultiStepSubmit";
-import config from '../../config'
-import { v4 as uuidv4 } from 'uuid';
+import {config} from '../../config'
+import Axios from 'axios'
 import IncidentContext from '../../contexts/incidentContext'
 
 const MultiStepForm = (props) => {
     const value = useContext(IncidentContext)
-    const { toggleChooseLocation, chooseLocation, toggleAddIncident } = props
+    const { toggleChooseLocation, chooseLocation, toggleAddIncident, token } = props
     const [currentStep, setCurrentStep] = useState(1)
     const [formData, setFormData] = useState({
         type: "",
@@ -64,16 +64,29 @@ const MultiStepForm = (props) => {
         toggleChooseLocation(false)
     }
 
-    const handleSubmit = () => {
-      
-            value.addIncident({
-                'id': uuidv4(),
-                'userId': value.user.id,
-                'userName': value.user.userName,
-                'timeOfIncident': formData.timeOfIncident.toString(),
-                'type': formData.type,
-                'description': formData.description,
-                'coordinates': value.location,
+    const handleSubmit = (e) => {
+        e.preventDefault()
+        Axios.post(`${config.API_ENDPOINT}/incident`, 
+                {
+                    timeOfIncident: formData.timeOfIncident,
+                    type: formData.type,
+                    description: formData.description,
+                    coordinates: value.location,
+                },
+                {
+                    headers: {
+                        'authorization': `bearer ${token}`,
+                    }
+                }
+            )
+            .then(res => {
+                if(res.status === 201) {
+                    value.addIncident(res.data)
+                }
+            })
+            .catch(error => {
+                console.log(error)
+                // alert(error.response.data.error)
             })
             toggleAddIncident()
     }
@@ -127,3 +140,5 @@ const MultiStepForm = (props) => {
 }
 
 export default MultiStepForm;
+
+

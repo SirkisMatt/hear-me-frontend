@@ -1,3 +1,4 @@
-export default {
-    API_ENDPOINT: 'http://localhost:9090'
+export const config = {
+  API_ENDPOINT: 'https://floating-mesa-18164.herokuapp.com/api',
+  TOKEN_KEY: 'user',
   }

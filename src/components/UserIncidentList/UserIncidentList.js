@@ -1,22 +1,27 @@
 import React, {useContext} from 'react'
 import IncidentContext from '../../contexts/incidentContext'
 import Axios from 'axios'
-import config from '../../config'
+import {config} from '../../config'
 import './UserIncidentList.css'
 
-function UserIncidentList({toggleEdit, setIncidentToEdit, setAddress}) {
+function UserIncidentList({toggleEdit, setIncidentToEdit, setAddress, token}) {
 
     const value = useContext(IncidentContext)
 
     const handleDeleteIncident = (id) => {
-        // Axios.delete(`${config.API_ENDPOINT}/incidents/${id}`)
-        //     .then(res => {
-        //         value.deleteIncident(id)
-        //     })
-        //     .catch(err => {
-        //         alert("Sorry there was a problem processing your request")
-        //     }) 
-            value.deleteIncident(id)  
+        Axios.delete(`${config.API_ENDPOINT}/incident/${id}`, {
+            headers: {
+                'authorization': `bearer ${token}`,
+              }
+        })
+            .then(res => {
+                if(res.status === 204) {
+                    value.deleteIncident(id)
+                }
+            })
+            .catch(err => {
+                alert("Sorry there was a problem processing your request")
+            }) 
     }
 
     const handleSetEditIncident = (incident) => {

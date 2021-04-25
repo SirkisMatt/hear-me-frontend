@@ -8,8 +8,10 @@ import RegistrationPage from '../../Routes/RegistrationPage/RegistrationPage'
 import MapPage from '../../Routes/MapPage/MapPage'
 import MapDashboard from '../../Routes/MapDashboard/MapDashboard'
 import NotFoundPage from '../../Routes/NotFoundPage/NotFoundPage'
-import config from '../../config'
-import * as incidentData from '../../data/incidents.json'
+import PrivateRoute from '../Utils/PrivateRoute'
+import PublicOnlyRoute from '../Utils/PublicOnlyRoute'
+import {config} from '../../config'
+import Axios from 'axios'
 import IncidentContext from '../../contexts/incidentContext'
 
 
@@ -18,17 +20,18 @@ function App() {
   const value = useContext(IncidentContext)
 
   useEffect(() => {
-    // Axios.get(`${config.API_ENDPOINT}/incidents`)
-    //     .then(res => {
-    //         if (res.status === 200) {
-    //             value.setIncidents(res.data)
-    //           } else {
-    //             throw new Error()
-    //           }
-    //     }).catch(err => {
-    //         value.setError(err)
-    //     })
-        value.setIncidents(incidentData.incidents)
+    Axios.get(`${config.API_ENDPOINT}/incident`)
+        .then(res => {
+            if (res.status === 200) {
+                value.setIncidents(res.data)
+              } else {
+                throw new Error()
+              }
+        }).catch(err => {
+            value.setError(err)
+        })
+      //call only needed on re-render to save on performance
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
 
   const renderMainRoutes = () => {
@@ -40,11 +43,11 @@ function App() {
           path={'/'}
           component={LandingPage}
           />
-          <Route 
+          <PublicOnlyRoute 
           path={'/login'}
           component={LoginPage}
           />
-          <Route 
+          <PublicOnlyRoute 
           path={'/register'}
           component={RegistrationPage}
           />
@@ -52,7 +55,7 @@ function App() {
           path={'/map'}
           component={MapPage}
           />
-           <Route 
+          <PrivateRoute 
           path={'/map-dashboard'}
           component={MapDashboard}
           />

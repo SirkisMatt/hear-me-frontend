@@ -19,7 +19,7 @@ class DatepickerComponent extends Component {
             startDate: date
         });
 
-        this.props.handleTimeChange(date)
+        this.props.handleTimeChange(date.toJSON())
     };
 
     
@@ -32,7 +32,7 @@ class DatepickerComponent extends Component {
                     selected={this.state.startDate}
                     onChange={this.handleChange}
                     showTimeSelect
-                    dateFormat="MM/dd/yyyy  EE hh:mm a"
+                    dateFormat="MM/dd/yyyy hh:mm"
                 />
             </div>
         )
