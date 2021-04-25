@@ -4,7 +4,7 @@ import Step2 from "./EditMultiStep2";
 import Step3 from "./EditMultiStep3";
 import Step4 from "./EditMultiStep4";
 import Submit from "./EditMultiStepSubmit";
-import config from '../../config'
+import {config} from '../../config'
 import Axios from 'axios'
 import IncidentContext from '../../contexts/incidentContext'
 
@@ -25,6 +25,8 @@ const EditMultiStepForm = (props) => {
             ...formData,
             coordinates: value.location,
         })
+         //do not want to reset form data
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [value.location])
 
     const handleChange = (event) => {

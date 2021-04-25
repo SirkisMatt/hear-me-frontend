@@ -8,7 +8,6 @@ import FilterButton from '../FilterButtons/FilterButton'
 import SearchBar from '../SearchBar/SearchBar'
 import Axios from 'axios'
 import './Map.css'
-import config from '../../config'
 import IncidentContext from '../../contexts/incidentContext'
 import TokenService from '../../services/token-service'
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -33,15 +32,16 @@ function Map(props) {
    
     const [search, setSearch] = useState('')
     const [incidents, setIncidents] = useState(value.incidents)
-    const [buttons, setButtons] = useState(allCategories)
+    const [active, setActive] = useState(allCategories[0]);
     
     
-    const {selectedIncident, setSelectedIncident, location, setLocation} = value
+    const {selectedIncident, setSelectedIncident, location, setLocation, setUserIncidents, userIncidents} = value
 
     useEffect(() => {
         setIncidents(value.incidents)
-        value.setUserIncidents(value.userIncidents)
-    }, [value.incidents, value.userIncidents])
+        setUserIncidents(userIncidents)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [value.incidents, userIncidents])
 
 
         //setIncidentData
@@ -53,7 +53,7 @@ function Map(props) {
         }
         
 
-            //Commented out for development phase.. not enough data to display so dummy data in place
+            //Commented out until there is enough data to display so dummy data in place
         // if(navigator.geolocation) {
         //     navigator.geolocation.getCurrentPosition(
         //         function(position) {
@@ -68,6 +68,7 @@ function Map(props) {
         //     )
 
         // }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     
@@ -119,6 +120,7 @@ function Map(props) {
         updateSize();
 
         return () => window.removeEventListener('resize', updateSize);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
     
     
@@ -135,9 +137,10 @@ function Map(props) {
         return () => {
             window.removeEventListener("keydown", listener)
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
-    const [active, setActive] = useState(allCategories[0]);
+   
 
     return (
         <div className="map">
@@ -152,7 +155,7 @@ function Map(props) {
             >
                 <div className="form-window">
                     <SearchBar getSearch={getSearch} setSearch={setSearch}/>
-                    <FilterButton button={buttons} active={active} filterIncidents={filterIncidents} />
+                    <FilterButton button={allCategories} active={active} filterIncidents={filterIncidents} />
                 </div>
                 {incidents.map((incident, i) => (
                     <Marker key={i} longitude={parseFloat(incident.coordinates[0])} latitude={parseFloat(incident.coordinates[1])}>

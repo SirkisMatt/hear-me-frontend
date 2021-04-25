@@ -10,7 +10,7 @@ import MapDashboard from '../../Routes/MapDashboard/MapDashboard'
 import NotFoundPage from '../../Routes/NotFoundPage/NotFoundPage'
 import PrivateRoute from '../Utils/PrivateRoute'
 import PublicOnlyRoute from '../Utils/PublicOnlyRoute'
-import config from '../../config'
+import {config} from '../../config'
 import Axios from 'axios'
 import IncidentContext from '../../contexts/incidentContext'
 
@@ -30,6 +30,8 @@ function App() {
         }).catch(err => {
             value.setError(err)
         })
+      //call only needed on re-render to save on performance
+    // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
 
   const renderMainRoutes = () => {

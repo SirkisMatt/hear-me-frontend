@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import ValidationError from '../Utils/ValidationError'
 import IncidentContext from '../../contexts/incidentContext'
-import { v4 as uuidv4 } from 'uuid';
 import Axios from 'axios'
-import config from '../../config'
+import {config} from '../../config'
 
 
 class RegistrationForm extends Component {
@@ -81,11 +80,12 @@ class RegistrationForm extends Component {
             .then(res => {
                 if (res.status === 201) {
                     this.props.onRegistrationSuccess()
+                    this.context.addUser(res.data)
                 } 
             })
             .catch(error => {
                 if(error.response.status === 400) {
-                    this.invalid(error.response.data.error.message)
+                    this.invalid(error.response.data.error)
                 } else {
                     this.invalid('There was a problem processing your request')
                 }

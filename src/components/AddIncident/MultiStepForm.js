@@ -4,7 +4,7 @@ import Step2 from "./MultiStep2";
 import Step3 from "./MultiStep3";
 import Step4 from "./MultiStep4";
 import Submit from "./MultiStepSubmit";
-import config from '../../config'
+import {config} from '../../config'
 import Axios from 'axios'
 import IncidentContext from '../../contexts/incidentContext'
 
@@ -84,7 +84,8 @@ const MultiStepForm = (props) => {
                 }
             })
             .catch(error => {
-                alert(error.response.data.error)
+                console.log(error)
+                // alert(error.response.data.error)
             })
             toggleAddIncident()
     }

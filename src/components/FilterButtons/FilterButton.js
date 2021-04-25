@@ -10,6 +10,8 @@ function FilterButton({button, filterIncidents, active}) {
         if(!value.loggedIn) {
             filterButtons(button.filter(cat => cat !== 'Yours'))
         }
+         //call only needed once
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return (

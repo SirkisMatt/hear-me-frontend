@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ValidationError from '../Utils/ValidationError'
 import TokenService from '../../services/token-service'
 import IncidentContext from '../../contexts/incidentContext'
-import config from '../../config'
+import {config} from '../../config'
 import Axios from 'axios';
 
 class LoginForm extends Component {
@@ -78,7 +78,7 @@ class LoginForm extends Component {
             })
             .catch(error => {
                 if(error.response.status === 400) {
-                    this.invalid(error.response.data.error.message)
+                    this.invalid(error.response.data.error)
                 } else {
                     this.invalid('There was a problem processing your request')
                 }
@@ -88,10 +88,10 @@ class LoginForm extends Component {
 
   
 
-    invalid = () => {
+    invalid = (error) => {
         this.setState({
             invalid: {
-                value: "Invalid email or password",
+                value: error,
                 error: true
             }
         })
@@ -104,7 +104,7 @@ class LoginForm extends Component {
     return (
       <form className='login-form' onSubmit={this.handleSubmit}>
             {this.state.invalid.error &&  <ValidationError message={this.state.invalid.value}/>}
-            <input placeholder={(!this.context.user.email) ? "email" : this.context.user.email} type="text" name='email' id='email' onChange={e => this.handleEmailChange(e)} />
+            <input placeholder= "email" defaultValue={this.context.user.email} type="text" name='email' id='email' onChange={e => this.handleEmailChange(e)} />
             {this.state.email.touched && <ValidationError message={emailError}/>}
             <input placeholder="Password" type="password" name='password' id='password'  onChange={e => this.handlePasswordChange(e)}/> 
             <button type='submit'>Login</button>

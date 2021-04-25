@@ -6,13 +6,14 @@ import MultiStepForm from '../../components/AddIncident/MultiStepForm'
 import EditMultiStepForm from '../../components/EditIncident/EditMultiStepForm'
 import TokenService from '../../services/token-service'
 import Axios from 'axios'
-import config from '../../config'
+import {config} from '../../config'
 import './MapDashboard.css'
 
 function MapDashBoard() {
 
     const value = useContext(IncidentContext)
-
+ 
+    const {addUser, setUserIncidents} = value
        
     const [size, setSize] = useState([0, 0])
 
@@ -23,6 +24,10 @@ function MapDashBoard() {
     const [chooseLocation, toggleChooseLocation] = useState(false)
     const token = JSON.parse(TokenService.getAuthToken()).authToken
     const parsedToken = JSON.parse(atob(token.split('.')[1]))
+    const newUser =  {
+        id: parsedToken.id,
+        userName: parsedToken.sub
+    }
 
   
     useLayoutEffect(() => {
@@ -37,15 +42,14 @@ function MapDashBoard() {
   
         const [width, height] = size
 
+        useEffect(() => {
+            addUser(newUser)
+            // Call only needed on first render to save on performance
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [])
         
     
         useEffect(() => {
-
-            value.addUser({
-                id: parsedToken.id,
-                userName: parsedToken.sub
-            })
-
             Axios.get(`${config.API_ENDPOINT}/incident/user`, {
                 headers: {
                     'authorization': `bearer ${token}`,
@@ -53,14 +57,25 @@ function MapDashBoard() {
             })
                 .then(res => {
                     if (res.status === 200) {
-                        value.setUserIncidents(res.data)
+                        setUserIncidents(res.data)
                     } 
                 })
                 .catch(error => {
-                    console.log(error)
+                    if (error.response.data.error.message === "No Incidents") {
+                        value.setError(error.response.data.error.message)
+                    } else {
+                        setUserIncidents([{
+                            id: 98765432345678909876543,
+                            userName: "Sorry there was a problem fetching your previous incidents",
+                            type: "",
+                            timeOfIncident: "",
+                        }])
+                    }
+                    
                 })
-         
-        }, [value.addUser])    
+            // Call only needed on first render to save on performance
+         // eslint-disable-next-line react-hooks/exhaustive-deps
+        }, [])    
 
     return (
         <div id="map_dashboard" className="map_dashboard">
