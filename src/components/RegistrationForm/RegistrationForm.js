@@ -83,7 +83,9 @@ class RegistrationForm extends Component {
                 } 
             })
             .catch(error => {
-                if(error.response.status === 400) {
+                if(!error.response) {
+                    this.invalid('There was a problem processing your request')
+                } else if (error.response.status === 400) {
                     this.invalid(error.response.data.error)
                 } else {
                     this.invalid('There was a problem processing your request')

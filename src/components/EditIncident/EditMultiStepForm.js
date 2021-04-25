@@ -73,7 +73,8 @@ const EditMultiStepForm = (props) => {
         toggleChooseLocation(false)
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         Axios.patch(`${config.API_ENDPOINT}/incident/${incidentToEdit.id}`, 
             {
                 timeOfIncident: formData.timeOfIncident,

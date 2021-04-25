@@ -64,7 +64,8 @@ const MultiStepForm = (props) => {
         toggleChooseLocation(false)
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        e.preventDefault()
         Axios.post(`${config.API_ENDPOINT}/incident`, 
                 {
                     timeOfIncident: formData.timeOfIncident,

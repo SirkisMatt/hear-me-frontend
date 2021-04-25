@@ -31,6 +31,8 @@ class LoginPage extends Component {
       
         return (
             <div className="login-wrap">
+                <p>UserName: test@test.com</p>
+                <p>Password: AAbb11!!</p>
                 <h2>Login</h2>
                 <LoginForm onLoginSuccess={this.handleLoginSuccess}/>
                 <p id="sign_up_string">Don't have an account? <Link to='/register' className="sign-up">Sign Up</Link></p>
