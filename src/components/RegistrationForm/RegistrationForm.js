@@ -73,32 +73,31 @@ class RegistrationForm extends Component {
 
     handleSubmit = (e) => {
         e.preventDefault(e)
-        // Axios.post(`${config.API_ENDPOINT}/users`, { 
-        //     userName: this.state.userName.value,
-        //     email: this.state.email.value,
-        //     password: this.state.password.value,
-        // })          
-        //     .then(res => {
-        //         if (res.status === 201) {
-        //             this.context.addUser(res.data)
-        //             this.props.onRegistrationSuccess()
-        //         } 
-        //     })
-        //     .catch(error => {
-        //         if(error.response.status === 400) {
-        //             this.invalid(error.response.data.error.message)
-        //         } else {
-        //             this.invalid('There was a problem processing your request')
-        //         }
-        //     }) 
-
-            this.context.addUser({
-                'id': uuidv4(),
-                'userName': this.state.userName.value,
-                'email': this.state.email.value,
-                'password': this.state.password.value,
+        Axios.post(`${config.API_ENDPOINT}/users/register`, { 
+            userName: this.state.userName.value,
+            email: this.state.email.value,
+            password: this.state.password.value,
+        })          
+            .then(res => {
+                if (res.status === 201) {
+                    this.props.onRegistrationSuccess()
+                } 
             })
-            this.props.onRegistrationSuccess()
+            .catch(error => {
+                if(error.response.status === 400) {
+                    this.invalid(error.response.data.error.message)
+                } else {
+                    this.invalid('There was a problem processing your request')
+                }
+            }) 
+
+            // this.context.addUser({
+            //     'id': uuidv4(),
+            //     'userName': this.state.userName.value,
+            //     'email': this.state.email.value,
+            //     'password': this.state.password.value,
+            // })
+            // this.props.onRegistrationSuccess()
         
     }
 

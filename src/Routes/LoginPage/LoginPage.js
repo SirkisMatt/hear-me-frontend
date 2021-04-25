@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import LoginForm from '../../components/LoginForm/LoginForm'
 import incidentContext from '../../contexts/incidentContext'
+import TokenService from '../../services/token-service'
 import { Link } from 'react-router-dom'
 import './LoginPage.css'
 
@@ -15,13 +16,19 @@ class LoginPage extends Component {
         },
       }
     
-      handleLoginSuccess = (id) => {
+      handleLoginSuccess = (userName) => {
         const {  history } = this.props
-        const destination = `/map-dashboard/${id}`
+        const token = JSON.parse(TokenService.getAuthToken()).authToken
+        const parsedToken = JSON.parse(atob(token.split('.')[1]))
+        const destination = `/map-dashboard/${parsedToken.sub}`
         history.push(destination)
+        
       }
+
+     
     
     render() {
+      
         return (
             <div className="login-wrap">
                 <h2>Login</h2>

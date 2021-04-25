@@ -92,5 +92,6 @@
             "password": "1234567890",
             "email": "test@test.com"
         }
-    ]
+    ],
+    "types": ["Race", "Gender", "Sexual", "Physical", "Verbal"]
 }

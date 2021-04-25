@@ -10,16 +10,16 @@ import Axios from 'axios'
 import './Map.css'
 import config from '../../config'
 import IncidentContext from '../../contexts/incidentContext'
+import TokenService from '../../services/token-service'
 // eslint-disable-next-line import/no-webpack-loader-syntax
 mapboxgl.workerClass = require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 
     //Set categories for buttons
-    const allCategories = ['Yours', 'All', ...new Set(incidentData.incidents.map(item => item.type))]
+    const allCategories = ['Yours', 'All', ...incidentData.types]
 function Map(props) {
-
     const value = useContext(IncidentContext)
-    const {loggedIn, width, height, chooseLocation} = props
+    const { width, height, chooseLocation,} = props
 
         //set viewport of map
     const [viewport, setViewport] = useState({
@@ -40,17 +40,17 @@ function Map(props) {
 
     useEffect(() => {
         setIncidents(value.incidents)
-    }, [value.incidents])
+        value.setUserIncidents(value.userIncidents)
+    }, [value.incidents, value.userIncidents])
 
 
         //setIncidentData
     useEffect(() => {
-        if(loggedIn) {
+        if(TokenService.hasAuthToken()) {
             value.toggleLoggedIn(true)
         } else {
             value.toggleLoggedIn(false)
         }
-        value.setIncidents(incidentData.incidents)
         
 
             //Commented out for development phase.. not enough data to display so dummy data in place
@@ -145,7 +145,7 @@ function Map(props) {
             {...viewport}
             mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
             mapStyle="mapbox://styles/mattsirkis/ckncf6qz30ys917knendrnubf"
-            onViewportChange={(viewport) => {
+            onViewportChange={(viewport) => { 
                 setViewport(viewport)
             }}
             onClick={(e) => setLocation(e.lngLat) }
@@ -155,7 +155,7 @@ function Map(props) {
                     <FilterButton button={buttons} active={active} filterIncidents={filterIncidents} />
                 </div>
                 {incidents.map((incident, i) => (
-                    <Marker key={i} longitude={incident.coordinates[0]} latitude={incident.coordinates[1]}>
+                    <Marker key={i} longitude={parseFloat(incident.coordinates[0])} latitude={parseFloat(incident.coordinates[1])}>
                         <div>
                             <button className="marker_btn" onClick={(e) => {
                                 e.preventDefault();
@@ -183,8 +183,8 @@ function Map(props) {
 
                 {selectedIncident && 
                 <Popup 
-                longitude={selectedIncident.coordinates[0]} 
-                latitude={selectedIncident.coordinates[1]}
+                longitude={parseFloat(selectedIncident.coordinates[0])} 
+                latitude={parseFloat(selectedIncident.coordinates[1])}
                 onClose={() => {
                     setSelectedIncident(null)
                 }}

@@ -1,20 +1,13 @@
-import React, {useContext, useEffect} from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import group from '../../Images/group.png'
 import phone from '../../Images/map-phone.png'
 import megaphone from '../../Images/megaphone.png'
-import IncidentContext from '../../contexts/incidentContext'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons'
 import './LandingPage.css'
 
-function LandingPage(props) {
-
-    const value = useContext(IncidentContext)
-
-    useEffect(() => {
-            value.toggleLoggedIn(false)
-    }, [])
+function LandingPage() {
     
         return (
             <div className='landing-page'>
