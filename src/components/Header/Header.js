@@ -11,6 +11,8 @@ function Header(props) {
 
     const handleLogoutClick = () => {
         value.toggleLoggedIn()
+        value.addUser({})
+        value.setUserIncidents([])
         TokenService.clearAuthToken()
       }
     

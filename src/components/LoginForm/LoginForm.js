@@ -104,7 +104,7 @@ class LoginForm extends Component {
     return (
       <form className='login-form' onSubmit={this.handleSubmit}>
             {this.state.invalid.error &&  <ValidationError message={this.state.invalid.value}/>}
-            <input placeholder= "email" defaultValue={this.context.user.email} type="text" name='email' id='email' onChange={e => this.handleEmailChange(e)} />
+            <input placeholder="email" type="text" name='email' id='email' onChange={e => this.handleEmailChange(e)} />
             {this.state.email.touched && <ValidationError message={emailError}/>}
             <input placeholder="Password" type="password" name='password' id='password'  onChange={e => this.handlePasswordChange(e)}/> 
             <button type='submit'>Login</button>

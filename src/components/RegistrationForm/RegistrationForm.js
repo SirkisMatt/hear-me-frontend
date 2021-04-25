@@ -80,7 +80,6 @@ class RegistrationForm extends Component {
             .then(res => {
                 if (res.status === 201) {
                     this.props.onRegistrationSuccess()
-                    this.context.addUser(res.data)
                 } 
             })
             .catch(error => {
