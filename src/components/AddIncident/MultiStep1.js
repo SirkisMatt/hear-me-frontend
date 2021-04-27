@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Step1 = (props) => {
-    const { data, handleTypeChange, toggleAddIncident, next } = props
+    const { handleTypeChange, toggleAddIncident, next, noTypeInput } = props
     return (
         <form>
              <div className="input_container">
@@ -30,9 +30,10 @@ const Step1 = (props) => {
                             </select>
                         </div>
                     </div>
+                    {noTypeInput && <p className="no_item_error">***Please select an incident type***</p>}
                 <div className="form_btn_container">
                     <button className="form_btn" type="button" onClick={toggleAddIncident}>Cancel</button>
-                    <button className="form_btn" type="button" onClick={next} disabled={data.type.length === 0}>Next</button>
+                    <button className="form_btn" type="button" onClick={next}>Next</button>
                 </div>
             </div>
         </form>

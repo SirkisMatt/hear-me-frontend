@@ -51,23 +51,6 @@ function Map(props) {
         } else {
             value.toggleLoggedIn(false)
         }
-        
-
-            //Commented out until there is enough data to display so dummy data in place
-        // if(navigator.geolocation) {
-        //     navigator.geolocation.getCurrentPosition(
-        //         function(position) {
-        //             setViewport({
-        //                 latitude: position.coords.latitude,
-        //                 longitude: position.coords.longitude,
-        //                 width: width,
-        //                 height: height,
-        //                 zoom: 7  
-        //             })
-        //         }
-        //     )
-
-        // }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
@@ -195,7 +178,7 @@ function Map(props) {
                     <div>
                         <h2>{selectedIncident.userName}</h2>
                         <p>{selectedIncident.type}</p>
-                        <p>{selectedIncident.timeOfIncident}</p>
+                        <p>{new Date(selectedIncident.timeOfIncident).toUTCString()}</p>
                         <p>{selectedIncident.description}</p>
                     </div>
                 </Popup>

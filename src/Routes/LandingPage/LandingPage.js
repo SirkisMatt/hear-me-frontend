@@ -12,6 +12,10 @@ function LandingPage() {
         return (
             <div className='landing-page'>
                 <div className="container" >
+                    <div className="test_user">
+                    <p><strong>Test User:</strong> test@test.com</p>
+                    <p><strong>Password:</strong> AAbb11!!</p>
+                    </div>
                     <div className="banner">
                         <div className="header_wrapper">
                             <div className="img_container ">
@@ -19,7 +23,7 @@ function LandingPage() {
                             </div>
                             <div className="header_container">
                                 <h1 className="title">
-                                    Hear <br/>me
+                                    Hear me
                                 </h1>
                             </div>
                         </div>

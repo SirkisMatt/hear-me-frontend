@@ -31,10 +31,11 @@
 
 .mapboxgl-popup-close-button {
     color: white;
+    font-size: 24px;
 }
 
 .mapboxgl-popup-content div {
-    width: 250px;
+    width: 280px;
 }
 
 .mapboxgl-popup-content h2, .mapboxgl-popup-content p {

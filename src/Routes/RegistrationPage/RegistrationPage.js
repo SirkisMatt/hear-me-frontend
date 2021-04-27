@@ -17,9 +17,6 @@ export default class RegistrationPage extends Component {
   render() {
     return (
         <div className="signup-wrap">
-          <p>Or Login with test User</p>
-          <p>UserName: test@test.com</p>
-          <p>Password: AAbb11!!</p>
             <h2>Sign up here</h2>
             <RegistrationForm
             onRegistrationSuccess={this.handleRegistrationSuccess}

@@ -39,6 +39,13 @@ html {
     overflow: auto;
 }
 
+.no_item_error {
+    color: #110f30;
+    font-size: 1.3rem;
+    font-weight: 700;
+    background-color: white;
+}
+
 /* Add incident btn styling */
 
 .add_incident_button {

@@ -91,15 +91,6 @@ class RegistrationForm extends Component {
                     this.invalid('There was a problem processing your request')
                 }
             }) 
-
-            // this.context.addUser({
-            //     'id': uuidv4(),
-            //     'userName': this.state.userName.value,
-            //     'email': this.state.email.value,
-            //     'password': this.state.password.value,
-            // })
-            // this.props.onRegistrationSuccess()
-        
     }
 
 
@@ -123,12 +114,7 @@ class RegistrationForm extends Component {
                 <input placeholder='Email' type="text" name='email' id='email' onChange={e => this.handleEmailChange(e)} />
                 {this.state.email.touched && <ValidationError message={emailError} />}
                 <input placeholder='Password' type="password" name='password' id='password' onChange={e => this.handlePasswordChange(e)}/>
-                <button 
-                type='submit'
-                // disabled={
-                //     this.validateEmail()
-                // }
-                >
+                <button type='submit'>
                     Sign Up
                 </button>
         </form>

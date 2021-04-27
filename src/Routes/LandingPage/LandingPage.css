@@ -19,6 +19,14 @@
     align-items: center;
 }
 
+.test_user {
+    position: absolute;
+    right: 20px;
+    top: 60px;
+    text-align: right;
+    font-size: 1.2rem;
+}
+
 .header_wrapper {
     align-items: center;
     display: flex;
@@ -199,7 +207,6 @@ font-size: 14px;
     .container .arrow_down_btn {
         bottom: 40px;
     }
-    
 }
 
 @media all and (min-width: 1024px) {
@@ -209,6 +216,24 @@ font-size: 14px;
     }
     .phone img {
         width: 400px;
+    }
+    .test_user {
+        position: absolute;
+        right: 30px;
+        top: 80px;
+    }
+    .header_container h1 {
+        margin-bottom: 90px;
+    }
+    
+}
+
+@media all and (min-width: 1240px) {
+    .test_user {
+        position: absolute;
+        right: 30px;
+        top: 100px;
+
     }
     
 }
