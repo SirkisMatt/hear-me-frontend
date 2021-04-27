@@ -5,6 +5,7 @@ import UserIncidentList from '../../components/UserIncidentList/UserIncidentList
 import MultiStepForm from '../../components/AddIncident/MultiStepForm'
 import EditMultiStepForm from '../../components/EditIncident/EditMultiStepForm'
 import TokenService from '../../services/token-service'
+import DeleteModal from '../../components/DeleteModal/DeleteModal'
 import Axios from 'axios'
 import {config} from '../../config'
 import './MapDashboard.css'
@@ -22,6 +23,8 @@ function MapDashBoard() {
     const [edit, toggleEdit] = useState(false)
     const [incidentToEdit, setIncidentToEdit] = useState({})
     const [chooseLocation, toggleChooseLocation] = useState(false)
+    const [show, toggleDeleteModal] = useState(false)
+    const [idToDelete, setIdToDelete] = useState('')
     const token = JSON.parse(TokenService.getAuthToken()).authToken
     const parsedToken = JSON.parse(atob(token.split('.')[1]))
     const newUser =  {
@@ -47,6 +50,14 @@ function MapDashBoard() {
             // Call only needed on first render to save on performance
         // eslint-disable-next-line react-hooks/exhaustive-deps
         }, [])
+
+        const handleDeleteIncident = (id) => {
+            toggleDeleteModal(true)
+            setIdToDelete(id)
+
+        }
+
+        
         
     
         useEffect(() => {
@@ -127,12 +138,21 @@ function MapDashBoard() {
               <UserIncidentList 
               toggleEdit={(boolean) => toggleEdit(boolean)} 
               setIncidentToEdit={(incidentToEdit) => setIncidentToEdit(incidentToEdit)}
+              handleDeleteIncident={(id) => handleDeleteIncident(id)}
               setAddress={(address) => setAddress(address)}
               token={token}
               />
             </div>
             }
-            
+
+            <DeleteModal 
+            toggleDeleteModal={(boolean) => toggleDeleteModal(boolean)}
+            show={show}
+            idToDelete={idToDelete}
+            token={token}
+            />
+
+             
         </div>
     )
 }

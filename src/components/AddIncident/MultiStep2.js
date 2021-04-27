@@ -43,7 +43,7 @@ const Step2 = (props) => {
                                 </button>
                             </div>
                         }
-                        {noLocation && <p className="no_item_error">Please select a location</p>}
+                        {noLocation && <p className="no_item_error">***Please select a location***</p>}
                         <div className="form_btn_container">
                             <button className="form_btn" type="button" onClick={backLocation}>Back</button> 
                             <button className="form_btn" type="button"  onClick={nextLocation}>Next</button>

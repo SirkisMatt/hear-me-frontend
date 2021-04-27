@@ -30,7 +30,7 @@ const Step1 = (props) => {
                             </select>
                         </div>
                     </div>
-                    {noTypeInput && <p className="no_item_error">Please select an incident type</p>}
+                    {noTypeInput && <p className="no_item_error">***Please select an incident type***</p>}
                 <div className="form_btn_container">
                     <button className="form_btn" type="button" onClick={toggleAddIncident}>Cancel</button>
                     <button className="form_btn" type="button" onClick={next}>Next</button>

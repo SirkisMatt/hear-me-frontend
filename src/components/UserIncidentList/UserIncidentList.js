@@ -1,28 +1,13 @@
 import React, {useContext} from 'react'
 import IncidentContext from '../../contexts/incidentContext'
 import Axios from 'axios'
-import {config} from '../../config'
 import './UserIncidentList.css'
 
-function UserIncidentList({toggleEdit, setIncidentToEdit, setAddress, token}) {
+function UserIncidentList({toggleEdit, setIncidentToEdit, setAddress, handleDeleteIncident}) {
 
     const value = useContext(IncidentContext)
 
-    const handleDeleteIncident = (id) => {
-        Axios.delete(`${config.API_ENDPOINT}/incident/${id}`, {
-            headers: {
-                'authorization': `bearer ${token}`,
-              }
-        })
-            .then(res => {
-                if(res.status === 204) {
-                    value.deleteIncident(id)
-                }
-            })
-            .catch(err => {
-                alert("Sorry there was a problem processing your request")
-            }) 
-    }
+
 
     const handleSetEditIncident = (incident) => {
         Axios.get(`https://api.mapbox.com/geocoding/v5/mapbox.places/${incident.coordinates}.json?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`)

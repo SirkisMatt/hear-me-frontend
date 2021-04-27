@@ -207,7 +207,6 @@ font-size: 14px;
     .container .arrow_down_btn {
         bottom: 40px;
     }
-    
 }
 
 @media all and (min-width: 1024px) {
@@ -222,7 +221,9 @@ font-size: 14px;
         position: absolute;
         right: 30px;
         top: 80px;
-
+    }
+    .header_container h1 {
+        margin-bottom: 90px;
     }
     
 }

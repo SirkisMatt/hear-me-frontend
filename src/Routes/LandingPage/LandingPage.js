@@ -23,7 +23,7 @@ function LandingPage() {
                             </div>
                             <div className="header_container">
                                 <h1 className="title">
-                                    Hear <br/>me
+                                    Hear me
                                 </h1>
                             </div>
                         </div>
