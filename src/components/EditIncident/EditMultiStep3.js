@@ -10,7 +10,7 @@ const Step3 = (props) => {
 
             <div className="form_btn_container">
                 <button className="form_btn" type="button" onClick={back}>Back</button> 
-                <button className="form_btn" type="button" onClick={next} disabled={data.description.length === 0}>Next</button>
+                <button className="form_btn" type="button" onClick={next}>Next</button>
             </div>
         </form>
     )

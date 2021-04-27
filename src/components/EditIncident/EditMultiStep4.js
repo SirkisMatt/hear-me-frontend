@@ -2,7 +2,7 @@ import React from 'react'
 import DatepickerComponent from '../Utils/DatepickerComponent'
 
 const Step4 = (props) => {
-    const { data, handleTimeChange, next, back } = props
+    const {handleTimeChange, next, back } = props
 
     return (
         <form>
@@ -14,7 +14,7 @@ const Step4 = (props) => {
             </div>
             <div className="form_btn_container">
                 <button className="form_btn" type="button" onClick={back}>Back</button> 
-                <button className="form_btn" type="button" onClick={next} disabled={data.timeOfIncident.length === 0} >Next</button> 
+                <button className="form_btn" type="button" onClick={next}>Next</button> 
             </div>
         </form>
     )

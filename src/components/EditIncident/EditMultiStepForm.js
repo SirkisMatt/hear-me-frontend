@@ -94,7 +94,14 @@ const EditMultiStepForm = (props) => {
                 }
             })
             .catch(error => {
-                alert(error.response.data.error)
+                if(!error.response.data.error) {
+                    alert('Sorry there was a problem processing your request')
+                }
+                else if(error.response.data.error === 400 && error.response.data.error) {
+                    alert(error.response.data.error)
+                } else {
+                    alert('Sorry there was a problem processing your request')
+                }
             })    
         toggleEdit()
     }

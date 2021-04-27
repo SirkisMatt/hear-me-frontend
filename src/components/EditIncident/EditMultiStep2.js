@@ -50,7 +50,7 @@ const Step2 = (props) => {
                         }
                         <div className="form_btn_container">
                             <button className="form_btn" type="button" onClick={backLocation}>Back</button> 
-                            <button className="form_btn" type="button" disabled={value.location.length === 0} onClick={nextLocation}>Next</button>
+                            <button className="form_btn" type="button" onClick={nextLocation}>Next</button>
                         </div>
                     </div>
         </form>

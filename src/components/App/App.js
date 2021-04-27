@@ -43,7 +43,7 @@ function App() {
           path={'/'}
           component={LandingPage}
           />
-          <PublicOnlyRoute 
+          <Route 
           path={'/login'}
           component={LoginPage}
           />

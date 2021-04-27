@@ -33,8 +33,10 @@ function UserIncidentList({toggleEdit, setIncidentToEdit, setAddress, token}) {
                 setAddress("Sorry there was a problem fetching that address") 
             })
         setIncidentToEdit(incident)
+        window.scroll(0,100)
         toggleEdit(true)
     }
+
 
     return (
         <div className="user_incident_list">
@@ -43,10 +45,10 @@ function UserIncidentList({toggleEdit, setIncidentToEdit, setAddress, token}) {
                     <div className="user_incident">
                         <h3>{incident.userName}</h3>
                         <p className="background_width">{incident.type}</p>
-                        <p>{incident.timeOfIncident}</p>
+                        <p>{new Date(incident.timeOfIncident).toUTCString()}</p>
                         <p>{incident.description}</p>
                         <div className="incident_list_btn_container">
-                            <a href="#map_dashboard"><button className="user_incident_btn" onClick={() => handleSetEditIncident(incident)}>Edit</button></a>
+                            <button className="user_incident_btn" onClick={() => handleSetEditIncident(incident)}>Edit</button>
                             <button className="user_incident_btn" onClick={() => handleDeleteIncident(incident.id)}>Delete</button>
                         </div>
                     </div>

@@ -3,7 +3,7 @@ import IncidentContext from '../../contexts/incidentContext'
 import Axios from 'axios'
 
 const Step2 = (props) => {
-    const { data, nextLocation, backLocation, toggleChooseLocation, chooseLocation, setAddress } = props
+    const { data, nextLocation, backLocation, toggleChooseLocation, chooseLocation, setAddress, noLocation } = props
     const value = useContext(IncidentContext)
 
     const req = value.location[0] + ',' + value.location[1]
@@ -43,9 +43,10 @@ const Step2 = (props) => {
                                 </button>
                             </div>
                         }
+                        {noLocation && <p className="no_item_error">Please select a location</p>}
                         <div className="form_btn_container">
                             <button className="form_btn" type="button" onClick={backLocation}>Back</button> 
-                            <button className="form_btn" type="button" disabled={value.location.length === 0} onClick={nextLocation}>Next</button>
+                            <button className="form_btn" type="button"  onClick={nextLocation}>Next</button>
                         </div>
                     </div>
         </form>

@@ -1,5 +1,6 @@
 .user_incident_list {
     margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .user_incident {
@@ -56,6 +57,7 @@
 @media all and (min-width: 700px) {
     .user_incident_list {
         margin-top: 50px;
+        margin-bottom: 40px;
     }
 
     .user_incident {

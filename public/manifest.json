@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Hear Me",
+  "name": "Hear Me",
   "icons": [
     {
       "src": "favicon.ico",
@@ -8,12 +8,12 @@
       "type": "image/x-icon"
     },
     {
-      "src": "logo192.png",
+      "src": "megaphone192x161.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x161"
     },
     {
-      "src": "logo512.png",
+      "src": "megaphone512.png",
       "type": "image/png",
       "sizes": "512x512"
     }

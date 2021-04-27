@@ -12,6 +12,9 @@ const MultiStepForm = (props) => {
     const value = useContext(IncidentContext)
     const { toggleChooseLocation, chooseLocation, toggleAddIncident, token } = props
     const [currentStep, setCurrentStep] = useState(1)
+    const [noTypeInput, toggleTypeInputError] = useState(false)
+    const [noLocation, toggleNoLocationError] = useState(false)
+    const [noTime, toggleTimeInputError] = useState(false)
     const [formData, setFormData] = useState({
         type: "",
         coordinates: value.location,
@@ -48,12 +51,36 @@ const MultiStepForm = (props) => {
         })
     }
 
-    const next = () => {
+    const nextType = () => {
+        if(formData.type.length === 0) {
+            toggleTypeInputError(true)
+        } else {
+            setCurrentStep(currentStep + 1)
+            toggleTypeInputError(false)
+        }        
+    }
+
+    const nextLocation = () => {
+        if(formData.address.length === 0) {
+            toggleNoLocationError(true)
+        } else {
+            setCurrentStep(currentStep + 1)
+            toggleChooseLocation(false)
+            toggleNoLocationError(false)
+        }
+    }
+
+    const nextDescription = () => {
         setCurrentStep(currentStep + 1)
     }
-    const nextLocation = () => {
-        setCurrentStep(currentStep + 1)
-        toggleChooseLocation(false)
+
+    const nextTime = () => {
+        if(formData.timeOfIncident.length === 0) {
+            toggleTimeInputError(true)
+        } else {
+            setCurrentStep(currentStep + 1)
+            toggleTimeInputError(false)
+        }        
     }
 
     const back = () => {
@@ -85,10 +112,17 @@ const MultiStepForm = (props) => {
                 }
             })
             .catch(error => {
-                console.log(error)
-                // alert(error.response.data.error)
+                if(!error.response.data.error) {
+                    alert('Sorry there was a problem processing your request')
+                }
+                else if(error.response.data.error === 400 &&error.response.data.error) {
+                    alert(error.response.data.error)
+                } else {
+                    alert('Sorry there was a problem processing your request')
+                }
             })
             toggleAddIncident()
+            window.scroll(0,670)
     }
 
     switch (currentStep) {
@@ -98,7 +132,8 @@ const MultiStepForm = (props) => {
                 data={formData}
                 toggleAddIncident={toggleAddIncident}
                 handleTypeChange={handleTypeChange}
-                next={next}
+                next={nextType}
+                noTypeInput={noTypeInput}
                 />
             )
         case 2:
@@ -109,6 +144,7 @@ const MultiStepForm = (props) => {
                 toggleChooseLocation={toggleChooseLocation}
                 chooseLocation={chooseLocation}
                 toggleAddIncident={toggleAddIncident}
+                noLocation={noLocation}
                 nextLocation={nextLocation}
                 backLocation={backLocation}
                 />
@@ -119,7 +155,7 @@ const MultiStepForm = (props) => {
                 data={formData}
                 handleChange={handleChange}
                 toggleAddIncident={toggleAddIncident}
-                next={next}
+                next={nextDescription}
                 back={back}
                 />
             )
@@ -129,7 +165,8 @@ const MultiStepForm = (props) => {
                 data={formData}
                 handleTimeChange={(time) => handleTimeChange(time)}
                 toggleAddIncident={toggleAddIncident}
-                next={next}
+                noTime={noTime}
+                next={nextTime}
                 back={back}
                 />
             ) 

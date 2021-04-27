@@ -61,7 +61,10 @@ function MapDashBoard() {
                     } 
                 })
                 .catch(error => {
-                    if (error.response.data.error.message === "No Incidents") {
+                    if(!error.response.data.error.message) {
+                        alert("Sorry, there has been a problem fetching your past incidents")
+                    }
+                     else if (error.response.data.error.message === "No Incidents") {
                         value.setError(error.response.data.error.message)
                     } else {
                         setUserIncidents([{
